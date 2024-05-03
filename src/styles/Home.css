@@ -1,0 +1,239 @@
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap);
+
+.home-body{
+    margin: 0 40px 0 40px;
+    height: auto;
+}
+/* .home-body::-webkit-scrollbar{
+    width: 0.5em;
+}
+.home-body::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+.home-body::-webkit-scrollbar-thumb{
+    background-color: transparent;
+} */
+/* About part */
+.about{
+    height: auto;
+    display: flex;
+}
+.world{
+    color: #A0F1D7;
+    height: auto;
+}
+.about-text{
+    text-align: left;
+    height: auto;
+    width: 45%;
+}
+.about-text p{
+  margin: 20px 0 20px;
+  color: #CCCCCC;
+  line-height: 30px;
+}
+.about-pic{
+    width: 650px;
+    object-fit: cover;
+    margin-left: auto;
+    margin-right: -40px;
+}
+.offers-btn{
+    height: auto;
+    padding: 16px;
+    background-color: #6D51BB;
+    border: 0;
+    color: white;
+    width: 180px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0px 0px 25px #9D81BF59;
+}
+/* end of about part*/
+
+/* Flight Search Card */
+
+.flight-search-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    border-radius: 25px;
+    box-shadow: 18px 18px 100px #9D81BF59;
+    padding: 25px;
+    margin: 30px auto 30px auto;
+}
+.flight-field{
+    height: auto;
+}
+.field-label{
+    display: flex;
+    height: auto;
+    color: #CCC;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.flight-i{
+    height: 50px;
+    border-radius: 30px;
+    border: 2px #a45eea94 solid;
+    padding: 0 30px 0 30px;
+    margin-top: 5px;
+    width: auto;
+    font-family: 'Montserrat';
+}
+select{
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 2px solid;
+    border-color: #DFEAEF;
+}
+select:focus{
+    border: 2px #A55EEA solid;
+    outline: none;
+}
+.search-btn{
+    padding: 25px;
+    border-radius: 20px;
+}
+.search-btn:hover{
+    cursor: pointer;
+}
+.field-icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+}
+/* End of Flight Search Card */
+
+/*Start of deals section*/
+.deals-header{
+   text-align: left;
+   font-style: normal;
+   margin-left: 20px;
+   color: #6D51BB;
+   font-size: 24px;
+   font-weight: 700;
+   height: auto;
+}
+.deals-container{
+    display: flex;
+    justify-content: space-evenly;
+    height: auto;
+    margin:40px 0;
+}
+.deal-cal{
+    height: 15px;
+    width: 15px;
+}
+.deal-img{
+    height: 250px;
+    width: 250px;
+}
+.deal-cont{
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.deal{
+    height: auto;
+    text-align: left;
+}
+/* .deal-img:hover{
+    filter: brightness(50%);
+} */
+.deal p{
+    margin-top: 10px;
+    color: #ccc;
+}
+.deal-title{
+    height: auto;
+    color: black;
+    max-width: 250px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.deal-month{
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
+}
+.deal-btn{
+    height: 250px;
+    padding: 16px;
+    border-radius: 15px;
+    border: 0;
+    background-color: rgba(120,120,120,0.6);
+    width: 250px;
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    filter: opacity(0);
+    /* left: 0; */
+    /* margin: auto; */
+}
+.deal-btn:hover{
+    cursor: pointer;
+    filter: opacity(1);
+}
+/*End of deals section*/
+
+/*Start of offers section*/
+.offers-header{
+    text-align: left;
+    font-style: normal;
+    color: #6D51BB;
+    font-size: 24px;
+    font-weight: 700;
+    height: auto;
+    margin-left: 20px;
+}
+.offer-img{
+    width: 1100px;
+    object-fit: contain;
+    height: auto;
+}
+.offers-container{
+    height: auto;
+    display: flex;
+    overflow: auto;
+    margin: 10px 60px 0 50px;
+}
+.offers-container::-webkit-scrollbar{
+    width: 0.5em;
+}
+.offer{
+    height: auto;
+    margin: 30px 20px;
+    position: relative;
+}
+.offer-title{
+    height: auto;
+    position: absolute;
+    top: 30px;
+    margin-left: 50px;
+    color: white;
+    font-size: 22px;
+}
+.offer-desc{
+    height: auto;
+    color: #bbb;
+    position: absolute;
+    top: 80px;
+    margin-left: 50px;
+    font-size: 18px;
+}
+/* .in-btn{
+    position: absolute;
+    height: auto;
+    top: 80px;
+    margin:auto;
+    z-index: 2;
+} */
+/* end of offers section */

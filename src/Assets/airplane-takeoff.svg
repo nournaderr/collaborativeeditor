@@ -1,0 +1,7 @@
+<svg id="MDI_airplane-takeoff" data-name="MDI / airplane-takeoff" xmlns="http://www.w3.org/2000/svg" width="31.198" height="31.198" viewBox="0 0 31.198 31.198">
+  <g id="Boundary" fill="#c8c2c2" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+    <rect width="31.198" height="31.198" stroke="none"/>
+    <rect x="0.5" y="0.5" width="30.198" height="30.198" fill="none"/>
+  </g>
+  <path id="Path_airplane-takeoff" data-name="Path / airplane-takeoff" d="M2.7,23.628H27.4v2.6H2.7v-2.6M28.137,11.46a1.945,1.945,0,0,0-2.392-1.378l-6.9,1.846-9-8.358-2.483.663,5.382,9.32L6.286,15.282l-2.561-2-1.885.507L4.206,17.9l1,1.729,2.08-.546,6.9-1.859,5.655-1.508,6.9-1.833A2,2,0,0,0,28.137,11.46Z" transform="translate(0.76 0.33)" fill="#c8c2c2"/>
+</svg>

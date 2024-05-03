@@ -1,0 +1,17 @@
+*{
+  margin: 0;
+}
+.App {
+  text-align: center;
+  margin: 0;
+  background-color: white;
+}
+*::-webkit-scrollbar{
+  width: 0.5em;
+}
+*::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+*::-webkit-scrollbar-thumb{
+  background-color: transparent;
+}

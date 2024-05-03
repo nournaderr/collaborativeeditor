@@ -1,0 +1,39 @@
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap);
+footer{
+    text-align: left;
+    height: auto;
+    background-color: #EEE;
+
+}
+.footer-top{
+    height: auto;
+    padding: 60px 60px 0 60px
+}
+.footer-items{
+    height: auto;
+}
+.ab-footer{
+    color: #6D51BB;
+    font-weight: 800;
+    font-size: 18px;
+    height: auto;
+}
+.footer-top ul{
+    height: auto;
+    line-height: 40px;
+}
+.footer-lists{
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+.footer-bottom{
+    background-color: #DDD;
+    height: 40px;
+    text-align: center;
+    padding-top: 15px;
+}
+.logo{
+    display: flex;
+}

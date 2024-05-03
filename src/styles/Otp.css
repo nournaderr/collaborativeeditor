@@ -1,0 +1,52 @@
+.otp{
+    display: flex;
+    height: 100vh;
+}
+.otp-card{
+    border-radius: 15px;
+    box-shadow: 0px 0px 25px #D8AFFF;
+    margin: auto;
+    background-color: white;
+    color: #444;
+    height: auto;
+    padding: 20px 50px 20px 50px;
+}
+.cc{
+    text-align: left;
+        height: auto;
+        color: #75C392;
+        font-size: 20px;
+        font-weight: 700;
+        text-align: left;
+        padding: 50px 0 45px 0;
+}
+.boxes{
+    display: flex;
+    height: auto;
+}
+.single-box{
+    border-radius: 5px;
+    margin: 8px;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+    color: #444;
+}
+li{
+    height: auto;
+}
+.li-box{
+    margin: 0;
+}
+ul{
+    list-style-type: none;
+    padding-inline-start: 0px;
+    padding-bottom: 30px;
+}
+.otp-container{
+    text-align: center;
+    height: auto;
+
+}

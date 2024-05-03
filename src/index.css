@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+h1{
+  font-weight: 400;
+  font-size: 50px;
+  height: auto;
+}
+p{
+  height: auto;
+}
+.airplane{
+  width: 600px;
+  object-fit: contain;
+  height: auto;
+  align-self: flex-end;
+}
+.lottie{
+  height: auto;
+}
+.title{
+  display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+
+}
+label{
+  height: auto;
+  width: fit-content;
+  text-align: left;
+  position: relative;
+  background-color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  z-index: 1;
+  left: 15px;
+  top: 10px;
+}
+
+a{
+  text-decoration: none;
+}

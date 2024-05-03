@@ -1,0 +1,159 @@
+.tickets{
+    text-align: left;
+    margin: 20px 40px;
+}
+
+.ticket-header{
+    font-style: normal;
+    color: #6D51BB;
+    font:500;
+    font-size: 22px;
+    margin-bottom: 60px;
+}
+.ticket-line{
+    display: flex;
+    height: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+.line-logo{
+    height: 20px;
+    
+}
+.mirror{
+    transform: scaleX(-1);
+}
+.line{
+    border-bottom: 2px #ccc dashed;
+    width: 100%;
+}
+/*ticket card*/
+.ticket-card{
+    width:900px;
+    height:220px;
+    box-shadow: 2px 6px 10px #ccc;
+    display: flex;
+    margin: 10px;
+    border-radius: 15px;
+}
+.ticket-left{
+    height: 100%;
+    width:80px;
+    background-color: #a55eea;
+    border-radius: 15px 0 0 15px;
+}
+.ticket-middle{
+    height: 200px;
+    width: 570px;
+}
+.middle-top{
+    height: 35px;
+    background-color: #6D51BB;
+}
+.ticket-right{
+    height: 200px;
+    width: 250px;
+    border-radius: 15px;
+}
+.right-top{
+    height: 35px;
+    background-color: #6D51BB;
+    border-radius: 0 15px 0 0;
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    padding-left: 40px;
+
+}
+.right-top p{
+    padding-top: 8px;
+}
+.mid-top-title{
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 12px;
+    margin-left: 140px;
+}
+.ticket-details{
+    
+    font-size: 14px;
+    font-weight: 700;
+}
+.details-title{
+    color:#888;
+    font-size: 10px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+.details-title span{
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+}
+#time{
+    color: red;
+}
+.dotted{
+    border:none;
+    height:220px;
+    border-left: 2px dashed #888;
+    /* color: #6D51BB; */
+    
+    /* background-color: transparent; */
+}
+.gates{
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+    width: 150px;
+}
+.details-note{
+    color: red;
+    font-size: 8px;
+    font-weight: 400;
+    margin-top: 10px;
+    width: 175px;
+}
+.middle-content{
+    display: flex;
+    margin: 30px 10px 0px 50px;
+}
+.details-right{
+    margin-left: 20px;
+    width: 100%;
+}
+.price-date{
+    display: flex;
+    justify-content: space-evenly;
+}
+.barcode{
+    margin-top: 10px;
+    text-align: center;
+}
+.right-bottom{
+    margin: 30px 10px 0px 20px;
+}
+.right-date{
+    display: flex;
+}
+.smaller{
+    margin-bottom: 8px;
+    margin-right: 50px;
+}
+.smaller span{
+    font-size: 12px;
+    /* overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical; */
+}
+.gatess{
+    margin-right: 40px;
+}
+/* end of ticket card */
