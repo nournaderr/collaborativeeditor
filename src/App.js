@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+
+import "react-quill/dist/quill.snow.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./Pages/Login";
@@ -9,6 +11,7 @@ import Payments from "./Pages/Payments";
 import Tickets from "./Pages/Tickets";
 import UserDocuments from "./Components/UserDocuments";
 import DocumentEditor from "./Components/DocumentEditor";
+import TextEditor from "./Pages/TextEditor";
 const dummyUserDocs = [
   // Dummy data for user documents
   { id: 1, name: "Document 1", owner: true },
@@ -43,6 +46,11 @@ const App = () => {
     // Open document with the given id
     console.log("Opening document:", id);
   };
+  const [text, setText] = useState("");
+
+  const handleChange = (value) => {
+    setText(value);
+  };
   return (
     <BrowserRouter>
       <div className="App">
@@ -52,6 +60,10 @@ const App = () => {
           {/* <Route path="/tickets" element={<Tickets />} /> */}
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/TextEditor"
+            element={<TextEditor value={text} onChange={handleChange} />}
+          />
           {/* <Route path="/otp" element={<OTP />} /> */}
           <Route
             path="/documents"
