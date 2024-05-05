@@ -19,13 +19,15 @@ export default function LoginCard() {
           "Content-Type": "text/plain",
         },
       }
+
       //{
       //  username,
       //  password,
       //}
     );
+    console.log("attempting2");
     console.log(response.data); // Handle successful login
-    if (response.data === "T") {
+    if (response.data == "T") {
       navigate("/TextEditor"); // Navigate to documents page upon successful login
       console.log("successful");
     } else {
