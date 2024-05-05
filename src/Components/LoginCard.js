@@ -12,10 +12,16 @@ export default function LoginCard() {
     try {
       const response = await axios.post(
         "https://collabbackend.onrender.com/login",
+        username + ":" + password,
         {
-          username,
-          password,
+          headers: {
+            "Content-Type": "text/plain",
+          },
         }
+        //{
+        //  username,
+        //  password,
+        //}
       );
       console.log(response.data); // Handle successful login
       if (response.data === "T") {
