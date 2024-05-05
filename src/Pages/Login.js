@@ -18,7 +18,7 @@ export default function Login() {
   //   };
   return (
     <div className="login">
-      <LoginCard onSubmit={handleSubmit} />
+      <LoginCard />
     </div>
   );
 }
