@@ -26,9 +26,11 @@ export default function LoginCard() {
         throw new Error("Username already exists!");
       }
       console.log("User created successfully");
+      navigate("/TextEditor"); // Navigate to documents page upon successful login
     } catch (error) {
       console.error(error);
-      setUsernameError("Username already exists");
+      navigate("/register"); // Navigate to documents page upon successful login
+      //setUsernameError("Username already exists");
       return;
     }
   };
