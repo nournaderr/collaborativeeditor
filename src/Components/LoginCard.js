@@ -13,6 +13,7 @@ export default function LoginCard() {
     password: password,
   };
   const handleLogin = async () => {
+    console.log("trying");
     try {
       const response = await fetch("https://collabbackend.onrender.com/login", {
         method: "POST",
@@ -21,6 +22,7 @@ export default function LoginCard() {
         },
         body: JSON.stringify(newUser),
       });
+      console.log("kharagt men try");
 
       if (!response.ok) {
         throw new Error("Username already exists!");
