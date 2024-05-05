@@ -8,38 +8,50 @@ export default function LoginCard() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleLogin = async () => {
-    console.log("attempting");
-    // try {
-    const response = await axios.post(
-      "https://collabbackend.onrender.com/login",
-      username + ":" + password,
-      {
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      }
-
-      //{
-      //  username,
-      //  password,
-      //}
-    );
-    console.log("attempting2");
-    console.log(response.data); // Handle successful login
-    if (response.data == "T") {
-      navigate("/TextEditor"); // Navigate to documents page upon successful login
-      console.log("successful");
-    } else {
-      // Handle unexpected response from server
-      console.error("Error:", response.data);
-      console.log("failed");
-    }
-    // } catch (error) {
-    //   console.error("Login failed:", error); // Handle login error
-    //   console.log("error kebeer");
-    // }
+  const newUser = {
+    username: username,
+    password: password,
   };
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("https://collabbackend.onrender.com/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!response.ok) {
+        throw new Error("Username already exists!");
+      }
+      console.log("User created successfully");
+    } catch (error) {
+      console.error(error);
+      setUsernameError("Username already exists");
+      return;
+    }
+  };
+  //     try {
+  //       const response = await axios.post(
+  //         "https://collabbackend.onrender.com/login",
+  //         {
+  //           username: username,
+  //           password: password,
+  //         }
+  //       );
+  //       console.log(response.data); // Handle successful login
+  //       if (response.data === "T") {
+  //         navigate("/TextEditor"); // Navigate to documents page upon successful login
+  //       } else {
+  //         // Handle unexpected response from server
+  //         console.error("Error:", response.data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Login failed:", error); // Handle login error
+  //     }
+  //   };
+
   return (
     <div className="login-card">
       <div className="title">
