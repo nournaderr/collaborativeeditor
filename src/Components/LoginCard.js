@@ -9,6 +9,7 @@ export default function LoginCard() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const handleLogin = async () => {
+    console.log("attempting");
     try {
       const response = await axios.post(
         "https://collabbackend.onrender.com/login",
