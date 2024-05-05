@@ -11,8 +11,6 @@ export default function LoginCard() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    setDataError("");
-
     try {
       const response = await fetch("https://collabbackend.onrender.com/login", {
         method: "POST",
