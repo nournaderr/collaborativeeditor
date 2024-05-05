@@ -26,10 +26,10 @@ export default function LoginCard() {
         throw new Error("Invalid username or password");
       }
 
-      // window.location.href = /Home?username=${formData.username};
-      navigate("/TextEditor");
+      window.location.href = "/TextEditor";
+      // navigate("/TextEditor");
     } catch (error) {
-      setDataError("*Invalid username or password");
+      console.log("error kebeer");
       console.error(error);
       return;
     }
