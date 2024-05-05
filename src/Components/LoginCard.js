@@ -26,12 +26,15 @@ export default function LoginCard() {
       console.log(response.data); // Handle successful login
       if (response.data === "T") {
         navigate("/TextEditor"); // Navigate to documents page upon successful login
+        console.log("successful");
       } else {
         // Handle unexpected response from server
         console.error("Error:", response.data);
+        console.log("failed");
       }
     } catch (error) {
       console.error("Login failed:", error); // Handle login error
+      console.log("error kebeer");
     }
   };
   return (
