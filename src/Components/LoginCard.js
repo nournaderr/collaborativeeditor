@@ -8,36 +8,27 @@ export default function LoginCard() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleLogin = () => {
-    // const userData = {
-    //   username: username,
-    //   password: password,
-    // };
-    // const url = "https://collabbackend.onrender.com/login";
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     // Optionally, include any additional headers as needed
-    //   },
-    //   body: JSON.stringify(userData),
-    // })
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error("Login failed");
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     // Handle successful login response
-    //     console.log("Login successful:", data);
-    navigate("/TextEditor"); // Navigate to documents page upon successful login
-    //   })
-    //   .catch((error) => {
-    //     // Handle error
-    //     navigate("/register"); // Navigate to documents page upon successful login
-    //     console.error("Error logging in:", error);
-    //   });
+  const handleLogin = async () => {
+    const url = "https://collabbackend.onrender.com/login";
+    const userData = { username, password };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        navigate("/TextEditor");
+      } else {
+        navigate("/register");
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
   };
   //     try {
   //       const response = await axios.post(
