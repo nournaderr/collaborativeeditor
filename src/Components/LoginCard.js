@@ -65,7 +65,7 @@ export default function LoginCard() {
 
         <h2>
           YOUR FAVOURITE <br></br>
-          <span className="airline">TEXTEDITOR</span>
+          <span className="airline">TEXTEDITOR SLAY</span>
         </h2>
       </div>
       <div className="login-form">
