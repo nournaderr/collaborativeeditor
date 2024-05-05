@@ -10,33 +10,33 @@ export default function LoginCard() {
   const navigate = useNavigate();
   const handleLogin = async () => {
     console.log("attempting");
-    try {
-      const response = await axios.post(
-        "https://collabbackend.onrender.com/login",
-        username + ":" + password,
-        {
-          headers: {
-            "Content-Type": "text/plain",
-          },
-        }
-        //{
-        //  username,
-        //  password,
-        //}
-      );
-      console.log(response.data); // Handle successful login
-      if (response.data === "T") {
-        navigate("/TextEditor"); // Navigate to documents page upon successful login
-        console.log("successful");
-      } else {
-        // Handle unexpected response from server
-        console.error("Error:", response.data);
-        console.log("failed");
+    // try {
+    const response = await axios.post(
+      "https://collabbackend.onrender.com/login",
+      username + ":" + password,
+      {
+        headers: {
+          "Content-Type": "text/plain",
+        },
       }
-    } catch (error) {
-      console.error("Login failed:", error); // Handle login error
-      console.log("error kebeer");
+      //{
+      //  username,
+      //  password,
+      //}
+    );
+    console.log(response.data); // Handle successful login
+    if (response.data === "T") {
+      navigate("/TextEditor"); // Navigate to documents page upon successful login
+      console.log("successful");
+    } else {
+      // Handle unexpected response from server
+      console.error("Error:", response.data);
+      console.log("failed");
     }
+    // } catch (error) {
+    //   console.error("Login failed:", error); // Handle login error
+    //   console.log("error kebeer");
+    // }
   };
   return (
     <div className="login-card">
