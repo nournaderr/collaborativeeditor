@@ -2,10 +2,15 @@ import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 const TextEditor = ({ value, onChange }) => {
+  const toolbarOptions = [["bold", "italic"]];
+  const module = {
+    toolbar: toolbarOptions,
+  };
+
   return (
     <div className="container">
-      <h1>React Quill Text Editor</h1>
-      <ReactQuill value={value} onChange={onChange} />
+      <h1>Text Editor</h1>
+      <ReactQuill modules={module} value={value} onChange={onChange} />
     </div>
   );
 };

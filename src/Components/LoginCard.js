@@ -1,14 +1,32 @@
+import axios from "axios";
 import Lottie from "lottie-react";
 import ap from "../lotties/Animation - 1714335733825.json";
 import "../styles/Login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function LoginCard() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate("/documents");
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        "https://collabbackend.onrender.com/login",
+        {
+          username,
+          password,
+        }
+      );
+      console.log(response.data); // Handle successful login
+      if (response.data === "T") {
+        navigate("/TextEditor"); // Navigate to documents page upon successful login
+      } else {
+        // Handle unexpected response from server
+        console.error("Error:", response.data);
+      }
+    } catch (error) {
+      console.error("Login failed:", error); // Handle login error
+    }
   };
   return (
     <div className="login-card">
@@ -32,12 +50,12 @@ export default function LoginCard() {
           </span>
         </div>
         <form>
-          <label>Email:</label>
+          <label>Username:</label>
           <input
-            name="email"
-            placeholder="nournader@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="username"
+            placeholder="John Doe"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <label>Password:</label>
           <input
@@ -47,9 +65,9 @@ export default function LoginCard() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <a className="forgot" href="">
+          {/* <a className="forgot" href="">
             forgot password?
-          </a>
+          </a> */}
           <button className="login-btn" onClick={handleLogin}>
             Login
           </button>

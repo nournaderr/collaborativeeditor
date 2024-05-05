@@ -1,3 +1,4 @@
+import axios from "axios";
 import "../styles/Register.css";
 import Lottie from "lottie-react";
 import ap from "../lotties/Animation - 1714335733825.json";
@@ -11,8 +12,26 @@ export default function RegisterCard() {
   const [rePassword, setRePassword] = useState("");
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
-  const handleRegister = () => {
-    navigate("/");
+  const handleRegister = async () => {
+    try {
+      const response = await axios.post(
+        "https://collabbackend.onrender.com/signup",
+        {
+          username: username,
+          password: password,
+        }
+      );
+      console.log(response.data); // Handle successful login
+      if (response.data === "T") {
+        navigate("/documents"); // Navigate to documents page upon successful login
+      } else {
+        // Handle unexpected response from server
+        console.error("Error:", response.data);
+      }
+    } catch (error) {
+      console.error("Login failed:", error); // Handle login error
+      // You might want to display an error message to the user
+    }
   };
   return (
     <div className="register-card">
@@ -36,12 +55,12 @@ export default function RegisterCard() {
           <div className="scrollable-container">
             <label>Username:</label>
             <input name="Username" placeholder="Nour" className="reg-inputs" />
-            <label>Email:</label>
+            {/* <label>Email:</label>
             <input
               name="email"
               placeholder="nournader@gmail.com"
               className="reg-inputs"
-            />
+            /> */}
             <label>Password:</label>
             <input
               name="password"
@@ -56,12 +75,12 @@ export default function RegisterCard() {
               placeholder="*******"
               className="reg-inputs"
             />
-            <label>Phone number:</label>
+            {/* <label>Phone number:</label>
             <input
               name="phone number"
               placeholder="01113282737"
               className="reg-inputs"
-            />
+            /> */}
             <div className="center">
               <button className="login-btn" onClick={handleRegister}>
                 Create Account
