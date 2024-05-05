@@ -8,28 +8,56 @@ export default function LoginCard() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleLogin = async () => {
-    const url = "https://collabbackend.onrender.com/login";
-    const userData = { username, password };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    setDataError("");
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch("https://collabbackend.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({ username: username, password: password }),
       });
 
-      if (response.ok) {
-        navigate("/TextEditor");
-      } else {
-        navigate("/register");
+      if (!response.ok) {
+        throw new Error("Invalid username or password");
       }
+
+      // window.location.href = /Home?username=${formData.username};
+      navigate("/TextEditor");
     } catch (error) {
-      console.error("Error logging in:", error);
+      setDataError("*Invalid username or password");
+      console.error(error);
+      return;
     }
   };
+
+  // const handleLogin = async (e) => {
+  //   const url = "https://collabbackend.onrender.com/login";
+  //   const userData = { username, password };
+
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(userData),
+  //     });
+
+  //     if (response.ok) {
+  //       navigate("/TextEditor");
+  //     } else {
+  //       navigate("/register");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error logging in:", error);
+  //   }
+  // };
+
   //     try {
   //       const response = await axios.post(
   //         "https://collabbackend.onrender.com/login",
@@ -94,7 +122,7 @@ export default function LoginCard() {
             Login
           </button>
           <a className="forgot center" href="/register">
-            CREATE ACCOUNT!
+            CREATE ACCOUNT?
           </a>
         </form>
       </div>
