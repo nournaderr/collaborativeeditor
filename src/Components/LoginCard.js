@@ -25,56 +25,13 @@ export default function LoginCard() {
       }
 
       window.location.href = "/TextEditor";
-      // navigate("/TextEditor");
     } catch (error) {
       console.log("error kebeer");
+      window.location.href = "/register";
       console.error(error);
       return;
     }
   };
-
-  // const handleLogin = async (e) => {
-  //   const url = "https://collabbackend.onrender.com/login";
-  //   const userData = { username, password };
-
-  //   try {
-  //     const response = await fetch(url, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(userData),
-  //     });
-
-  //     if (response.ok) {
-  //       navigate("/TextEditor");
-  //     } else {
-  //       navigate("/register");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error logging in:", error);
-  //   }
-  // };
-
-  //     try {
-  //       const response = await axios.post(
-  //         "https://collabbackend.onrender.com/login",
-  //         {
-  //           username: username,
-  //           password: password,
-  //         }
-  //       );
-  //       console.log(response.data); // Handle successful login
-  //       if (response.data === "T") {
-  //         navigate("/TextEditor"); // Navigate to documents page upon successful login
-  //       } else {
-  //         // Handle unexpected response from server
-  //         console.error("Error:", response.data);
-  //       }
-  //     } catch (error) {
-  //       console.error("Login failed:", error); // Handle login error
-  //     }
-  //   };
 
   return (
     <div className="login-card">
