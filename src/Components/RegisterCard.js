@@ -7,31 +7,44 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function RegisterCard() {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  const [phone, setPhone] = useState("");
+  // const [phone, setPhone] = useState("");
   const navigate = useNavigate();
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (password !== rePassword) {
+      displayErrorMessage("Passwords do not match");
+      return;
+    }
     try {
-      const response = await axios.post(
+      const response = await fetch(
         "https://collabbackend.onrender.com/signup",
         {
-          username: username,
-          password: password,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username: username, password: password }),
         }
       );
-      console.log(response.data); // Handle successful login
-      if (response.data === "T") {
-        navigate("/documents"); // Navigate to documents page upon successful login
-      } else {
-        // Handle unexpected response from server
-        console.error("Error:", response.data);
+
+      if (!response.ok) {
+        throw new Error("Username already used");
       }
+
+      window.location.href = "/login";
     } catch (error) {
-      console.error("Login failed:", error); // Handle login error
-      // You might want to display an error message to the user
+      console.log("error");
+      displayErrorMessage(error.message);
+      console.error(error);
+      return;
     }
+  };
+  const displayErrorMessage = (message) => {
+    const errorMessageElement = document.getElementById("error-message");
+    errorMessageElement.textContent = message;
   };
   return (
     <div className="register-card">
@@ -65,6 +78,8 @@ export default function RegisterCard() {
             <input
               name="password"
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="*******"
               className="reg-inputs"
             />
@@ -72,6 +87,8 @@ export default function RegisterCard() {
             <input
               name="Re Password"
               type="password"
+              value={rePassword}
+              onChange={(e) => setRePassword(e.target.value)}
               placeholder="*******"
               className="reg-inputs"
             />
@@ -81,6 +98,7 @@ export default function RegisterCard() {
               placeholder="01113282737"
               className="reg-inputs"
             /> */}
+            <div id="error-message"></div>
             <div className="center">
               <button className="login-btn" onClick={handleRegister}>
                 Create Account
