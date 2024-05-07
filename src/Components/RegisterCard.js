@@ -34,7 +34,7 @@ export default function RegisterCard() {
         throw new Error("Username already used");
       }
 
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (error) {
       console.log("error");
       displayErrorMessage(error.message);
