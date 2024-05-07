@@ -1,102 +1,104 @@
-.login{
-background-image: url("../Assets/Nour\ shitty\ concept.png");
-background-size: cover;
-display: flex;
-height: 100vh;
+.login {
+  background-image: url("../Assets/Nour\ shitty\ concept.png");
+  background-size: cover;
+  display: flex;
+  height: 100vh;
 }
 
-.login-card{
-    width: 40%;
-    height: auto;
-    padding-top: 20px;
-    border-radius: 15px;
-    background-color: white;
-    margin-left: auto;
-    /* margin-right: 100px; */
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-bottom: 50px;
-    color: #444;
-    /* display: flex;
+.login-card {
+  width: 40%;
+  height: auto;
+  padding-top: 20px;
+  border-radius: 15px;
+  background-color: white;
+  margin-left: auto;
+  /* margin-right: 100px; */
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-bottom: 50px;
+  color: #444;
+  /* display: flex;
     flex-direction: column; */
 }
-form{
-    height: auto;
-    display: flex;
-    flex-direction: column;
+form {
+  height: auto;
+  display: flex;
+  flex-direction: column;
 }
-h2{
-    font-weight: 800;
-    display: inline;
-    font-style: italic;
-    height: auto;
-    font-size: 20px;
+h2 {
+  font-weight: 800;
+  display: inline;
+  font-style: italic;
+  height: auto;
+  font-size: 20px;
 }
-.airline{
-    font-weight: 100;
-    font-style: normal;
-    letter-spacing: 6px;
-    font-size: 18px;
+.airline {
+  font-weight: 100;
+  font-style: normal;
+  letter-spacing: 6px;
+  font-size: 18px;
 }
-.wb{
-    padding-top: 10px;
-    display: inline;
-    height: auto;
-    color: #75C392;
-    font-size: 15px;
-    font-weight: 700;
-    text-align: left;
-    margin-bottom: 20px;
+.wb {
+  padding-top: 10px;
+  display: inline;
+  height: auto;
+  color: #75c392;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 20px;
 }
-.wb-t{
-    font-size: 25px;
+.wb-t {
+  font-size: 25px;
 }
-.login-form{
-    display: flex;
-    flex-direction: column;
-    padding-left: 100px;
-    padding-right: 100px;
-    height: auto;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  padding-left: 100px;
+  padding-right: 100px;
+  height: auto;
 }
-input{
-    height: 50px;
-    background-color: white;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    border: 2px solid;
-    border-color: #DFEAEF;
-    padding-left: 24px;
+input {
+  height: 50px;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  border: 2px solid;
+  border-color: #dfeaef;
+  padding-left: 24px;
 }
-input:focus{
-    border: 2px #A55EEA solid;
-    outline: none;
+input:focus {
+  border: 2px #a55eea solid;
+  outline: none;
 }
-.forgot{
-    height: auto;
-    text-align: right;
-    font-size: 14px;
-    color: #6E6E6E;
-    font-weight: 600;
+.forgot {
+  height: auto;
+  text-align: right;
+  font-size: 14px;
+  color: #6e6e6e;
+  font-weight: 600;
 }
-.center{
-    text-align: center;
-    font-size: 18px;
-    height: auto;
+.center {
+  text-align: center;
+  font-size: 18px;
+  height: auto;
 }
-.login-btn{
-    height: 45px;
-    border-radius: 8px;
-    border: none;
-    background-color: #A55EEA;
-    color: white;
-    width: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    align-self: center;
-    font-size: 18px;
+.login-btn {
+  height: 45px;
+  border-radius: 8px;
+  border: none;
+  background-color: #a55eea;
+  color: white;
+  width: 150px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  align-self: center;
+  font-size: 18px;
 }
-.login-btn:hover{
-    cursor: pointer;
+.login-btn:hover {
+  cursor: pointer;
 }
-
+#error-message {
+  color: #f50000;
+}

@@ -26,11 +26,15 @@ export default function LoginCard() {
 
       window.location.href = "/TextEditor";
     } catch (error) {
-      console.log("error kebeer");
-      window.location.href = "/register";
+      console.log("error");
+      displayErrorMessage(error.message);
       console.error(error);
       return;
     }
+  };
+  const displayErrorMessage = (message) => {
+    const errorMessageElement = document.getElementById("error-message");
+    errorMessageElement.textContent = message;
   };
 
   return (
@@ -42,7 +46,7 @@ export default function LoginCard() {
 
         <h2>
           YOUR FAVOURITE <br></br>
-          <span className="airline">TEXTEDITOR SLAY</span>
+          <span className="airline">TEXTEDITOR</span>
         </h2>
       </div>
       <div className="login-form">
@@ -73,6 +77,7 @@ export default function LoginCard() {
           {/* <a className="forgot" href="">
             forgot password?
           </a> */}
+          <div id="error-message"></div>
           <button className="login-btn" onClick={handleLogin}>
             Login
           </button>
