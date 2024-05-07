@@ -67,7 +67,13 @@ export default function RegisterCard() {
         <form>
           <div className="scrollable-container">
             <label>Username:</label>
-            <input name="Username" placeholder="Nour" className="reg-inputs" />
+            <input
+              name="Username"
+              placeholder="Nour"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="reg-inputs"
+            />
             {/* <label>Email:</label>
             <input
               name="email"
