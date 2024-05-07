@@ -101,4 +101,5 @@ input:focus {
 }
 #error-message {
   color: #f50000;
+  text-align: center;
 }
