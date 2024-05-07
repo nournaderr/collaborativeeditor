@@ -26,7 +26,7 @@ export default function RegisterCard() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ _id: username, password: password }),
+          body: JSON.stringify({ id: username, password: password }),
         }
       );
 
