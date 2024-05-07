@@ -5,10 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-import OTP from "./Pages/OTP";
 import Home from "./Pages/Home";
-import Payments from "./Pages/Payments";
-import Tickets from "./Pages/Tickets";
 import UserDocuments from "./Components/UserDocuments";
 import DocumentEditor from "./Components/DocumentEditor";
 import TextEditor from "./Pages/TextEditor";
@@ -56,15 +53,12 @@ const App = () => {
       <div className="App">
         <Routes>
           <Route path="/login" element={<Home />} />
-          {/* <Route path="/payment" element={<Payments />} /> */}
-          {/* <Route path="/tickets" element={<Tickets />} /> */}
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/TextEditor"
             element={<TextEditor value={text} onChange={handleChange} />}
           />
-          {/* <Route path="/otp" element={<OTP />} /> */}
           <Route
             path="/documents"
             element={
