@@ -1,4 +1,3 @@
-import axios from "axios";
 import "../styles/Login.css";
 import "../styles/Register.css";
 //import airplane from '../Assets/airplane.svg';
