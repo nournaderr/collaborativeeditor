@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DocumentCard from "../Components/DocumentCard";
 import "../styles/Documents.css";
+import { useLocation } from "react-router-dom";
 
 function Documents() {
   const [selectedOption, setSelectedOption] = useState("myFiles");
   const [files, setFiles] = useState([]);
-
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const username = params.get("username");
   useEffect(() => {
     if (selectedOption === "myFiles") {
       axios

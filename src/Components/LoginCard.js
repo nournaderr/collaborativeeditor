@@ -24,7 +24,8 @@ export default function LoginCard() {
         throw new Error("Invalid username or password");
       }
 
-      window.location.href = "/TextEditor";
+      window.location.href =
+        "/Documents?username=" + encodeURIComponent(username);
     } catch (error) {
       console.log("error");
       displayErrorMessage(error.message);
