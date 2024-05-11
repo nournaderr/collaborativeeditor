@@ -23,11 +23,12 @@ select {
   background-color: #e8e8e8;
   /* #cccdc6 */
 }
-.Navblock select {
+.Navbar title {
+  font-style: normal;
 }
 .document-card {
   display: block;
-  width: fit-content;
+  width: 30%;
   align-items: flex-start;
   border: 1px solid #ccc;
   padding: 10px;

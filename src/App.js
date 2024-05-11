@@ -8,7 +8,6 @@ import Register from "./Pages/Register";
 import Documents from "./Pages/Documents";
 import TextEditor from "./Pages/TextEditor";
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [text, setText] = useState("");
   const handleChange = (value) => {
     setText(value);

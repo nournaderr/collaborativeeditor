@@ -9,10 +9,52 @@ function Documents() {
   const [files, setFiles] = useState([]);
   const [editfiles, seteditFiles] = useState([]);
   const [viewfiles, setviewFiles] = useState([]);
-  //   const [docaddname, setdocaddName] = useState([]);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const username = params.get("username");
+  const onDelete = (docID) => {};
+  const onRename = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "https://collabbackend.onrender.com/rename",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            docID: docID,
+            docName: docName,
+            authorName: username,
+            content: "",
+            bold: [],
+            italic: [],
+            editors: [],
+            viewers: [],
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Document cannot be renamed, you have a document with the same name"
+        );
+      }
+    } catch (error) {
+      console.log("error");
+      displayErrorMessage(error.message);
+      console.error(error);
+      return;
+    }
+  };
+  const displayErrorMessage = (message) => {
+    const errorMessageElement = document.getElementById("error-message");
+    errorMessageElement.textContent = message;
+  };
+  const onOpen = (docID) => {};
+  //delete, rename, share --owner
   useEffect(() => {
     if (selectedOption === "myFiles" && username) {
       axios
@@ -89,11 +131,16 @@ function Documents() {
               (
                 file //iterates over each element in files array
               ) => (
-                <DocumentCard
-                  docID={file.docID}
-                  docName={file.docName}
-                  authorName={file.authorName}
-                />
+                <div key={file.docID}>
+                  <DocumentCard
+                    docID={file.docID}
+                    docName={file.docName}
+                    authorName={file.authorName}
+                  />
+                  <button onClick={() => onOpen(file.docID)}>Open</button>
+                  <button onClick={() => onRename(file.docID)}>Rename</button>
+                  <button onClick={() => onDelete(file.docID)}>Delete</button>
+                </div>
               )
             )}
           </ul>
