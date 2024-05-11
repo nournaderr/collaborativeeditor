@@ -51,7 +51,7 @@ function Documents() {
     if (docName) {
       axios
         .post(`https://collabbackend.onrender.com/adddoc/`, {
-          docName: "doc5",
+          docName: docName,
           authorName: username,
           content: "",
           bold: [],
