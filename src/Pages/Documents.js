@@ -50,7 +50,7 @@ function Documents() {
     const docName = prompt("Enter document name:");
     if (docName) {
       axios
-        .post(`https://collabbackend.onrender.com/adddoc/`, {
+        .post(`https://collabbackend.onrender.com/adddoc`, {
           docName: docName,
           authorName: username,
           content: "",
