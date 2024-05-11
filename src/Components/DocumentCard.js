@@ -90,7 +90,7 @@ function DocumentCard({
       </div>
       <button onClick={() => onOpen(docID)}>Open</button>
       <button onClick={onRename}>Rename</button>
-      <button onClick={() => onDelete(docID)}>Delete</button>
+      <button onClick={onDelete}>Delete</button>
     </div>
   );
 }
