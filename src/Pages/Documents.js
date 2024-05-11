@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 function Documents() {
   const [selectedOption, setSelectedOption] = useState("myFiles");
   const [files, setFiles] = useState([]);
+  const [editfiles, seteditFiles] = useState([]);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const username = params.get("username");
@@ -32,7 +33,7 @@ function Documents() {
       axios
         .get(`https://collabbackend.onrender.com/editdocs/${username}`)
         .then((response) => {
-          // Handle the response for the additional request
+          seteditFiles(response.data);
         })
         .catch((error) => {
           console.error("Error fetching additional files:", error);
@@ -71,6 +72,17 @@ function Documents() {
             )
           )}
         </ul>
+        {editfiles.length > 0 && ( // Check if there are files to be edited
+          <ul>
+            {editfiles.map((file) => (
+              <DocumentCard
+                docID={file.docID}
+                docName={file.docName}
+                authorName={file.authorName}
+              />
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
