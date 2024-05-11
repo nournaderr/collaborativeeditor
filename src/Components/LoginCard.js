@@ -21,9 +21,8 @@ export default function LoginCard() {
         throw new Error("Invalid username or password");
       }
       // setIsLoggedIn(true);
-      window.location.href = `/Documents?username=${encodeURIComponent(
-        username
-      )}&isLoggedIn=true`;
+      window.location.href =
+        "/Documents?username=" + encodeURIComponent(username);
     } catch (error) {
       console.log("error");
       displayErrorMessage(error.message);
