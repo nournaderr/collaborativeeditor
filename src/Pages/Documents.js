@@ -3,12 +3,13 @@ import axios from "axios";
 import DocumentCard from "../Components/DocumentCard";
 import "../styles/Documents.css";
 import { useLocation } from "react-router-dom";
-//add document - username and doc name in post requests
+import { FaPlus } from "react-icons/fa";
 function Documents() {
   const [selectedOption, setSelectedOption] = useState("myFiles");
   const [files, setFiles] = useState([]);
   const [editfiles, seteditFiles] = useState([]);
   const [viewfiles, setviewFiles] = useState([]);
+  //   const [docaddname, setdocaddName] = useState([]);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const username = params.get("username");
@@ -37,7 +38,7 @@ function Documents() {
           seteditFiles(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching additional files:", error);
+          console.error("Error fetching shared files:", error);
         });
     }
   }, [selectedOption, username]); //usage of useEffect with a dependency on selectedOption
@@ -45,7 +46,26 @@ function Documents() {
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
-
+  const handleAddDocument = () => {
+    const docName = prompt("Enter document name:");
+    if (docName) {
+      axios
+        .post(`https://collabbackend.onrender.com/adddoc/`, {
+          docName: "doc5",
+          authorName: username,
+          content: "",
+          bold: [],
+          italic: [],
+          editors: [],
+          viewers: [],
+        })
+        .then((response) => {})
+        .catch((error) => {
+          // Handle error
+          console.error("Error creating new document:", error);
+        });
+    }
+  };
   return (
     <div>
       <div className="Navblock">
@@ -57,6 +77,9 @@ function Documents() {
           <option value="myFiles">My Files</option>
           <option value="sharedFiles">Shared Files</option>
         </select>
+        <button className="plus-button" onClick={handleAddDocument}>
+          <FaPlus />
+        </button>
       </div>
       <div className="document-list">
         <p>{username}'s Documents</p>
