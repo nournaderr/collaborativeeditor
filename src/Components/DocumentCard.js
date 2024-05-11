@@ -13,7 +13,7 @@ function DocumentCard({
 }) {
   const onOpen = (docID) => {};
   const onDelete = () => {};
-  const onRename = async (e, docID) => {
+  const onRename = async (e) => {
     e.preventDefault();
     const docName = prompt("Enter document name:");
     if (docName) {
@@ -63,7 +63,7 @@ function DocumentCard({
         {/* <p className="document-date">{docID}</p> */}
       </div>
       <button onClick={() => onOpen(docID)}>Open</button>
-      <button onClick={() => onRename(docID)}>Rename</button>
+      <button onClick={onRename}>Rename</button>
       <button onClick={() => onDelete(docID)}>Delete</button>
     </div>
   );
