@@ -72,7 +72,7 @@ function Documents() {
             )
           )}
         </ul>
-        {editfiles.length > 0 && ( // Check if there are files to be edited
+        {selectedOption == "sharedFiles" && ( // Check if there are files to be edited
           <ul>
             {editfiles.map((file) => (
               <DocumentCard
