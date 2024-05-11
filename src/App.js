@@ -9,9 +9,6 @@ import Documents from "./Pages/Documents";
 import TextEditor from "./Pages/TextEditor";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const handleLogin = () => {
-    setIsLoggedIn(true); // Set isLoggedIn state to true upon successful login
-  };
   const [text, setText] = useState("");
   const handleChange = (value) => {
     setText(value);
@@ -20,15 +17,15 @@ const App = () => {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {/* <Route path="/" element={<Login />} /> */}
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* <Route
+          <Route
             path="/TextEditor"
             element={<TextEditor value={text} onChange={handleChange} />}
-          /> */}
-          {/* <Route path="/documents" element={<Documents />} /> */}
+          />
+          <Route path="/documents" element={<Documents />} />
 
-          <Route
+          {/* <Route
             path="/"
             element={
               isLoggedIn ? (
@@ -37,8 +34,8 @@ const App = () => {
                 <Login onLogin={handleLogin} />
               )
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/documents"
             element={isLoggedIn ? <Documents /> : <Navigate to="/" />} // Render Documents only if logged in
           />
@@ -50,8 +47,8 @@ const App = () => {
               ) : (
                 <Navigate to="/" value={text} onChange={handleChange} />
               )
-            } // Render TextEditor only if logged in
-          />
+            } // Render TextEditor only if logged in 
+          />*/}
         </Routes>
       </div>
     </BrowserRouter>

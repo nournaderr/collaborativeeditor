@@ -1,13 +1,10 @@
-import axios from "axios";
 import Lottie from "lottie-react";
 import ap from "../lotties/Animation - 1714335733825.json";
 import "../styles/Login.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 export default function LoginCard() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -23,9 +20,10 @@ export default function LoginCard() {
       if (!response.ok) {
         throw new Error("Invalid username or password");
       }
-
-      window.location.href =
-        "/Documents?username=" + encodeURIComponent(username);
+      // setIsLoggedIn(true);
+      window.location.href = `/Documents?username=${encodeURIComponent(
+        username
+      )}&isLoggedIn=true`;
     } catch (error) {
       console.log("error");
       displayErrorMessage(error.message);
