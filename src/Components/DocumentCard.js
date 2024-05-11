@@ -14,29 +14,26 @@ function DocumentCard({
   const onOpen = (docID) => {};
   const onDelete = async (e) => {
     e.preventDefault();
-    const docName = prompt("Enter document name:");
-    if (docName) {
-      try {
-        const response = await fetch(
-          `https://collabbackend.onrender.com/delete/${docID}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to delete document");
+    try {
+      const response = await fetch(
+        `https://collabbackend.onrender.com/delete/${docID}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-        console.log("Document deleted successfully");
-      } catch (error) {
-        console.log("error");
-        displayErrorMessage(error.message);
-        console.error(error);
-        return;
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete document");
       }
+      console.log("Document deleted successfully");
+    } catch (error) {
+      console.log("error");
+      displayErrorMessage(error.message);
+      console.error(error);
+      return;
     }
   };
   const onRename = async (e) => {
