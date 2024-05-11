@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DocumentCard from "../Components/DocumentCard";
+import EditorDocumentCard from "../Components/EditorDocumentCard";
+import ViewerDocumentCard from "../Components/ViewerDocumentCard";
+
 import "../styles/Documents.css";
 import { useLocation } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
@@ -12,49 +15,7 @@ function Documents() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const username = params.get("username");
-  const onDelete = (docID) => {};
-  const onRename = async (e) => {
-    e.preventDefault();
 
-    try {
-      const response = await fetch(
-        "https://collabbackend.onrender.com/rename",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            docID: docID,
-            docName: docName,
-            authorName: username,
-            content: "",
-            bold: [],
-            italic: [],
-            editors: [],
-            viewers: [],
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          "Document cannot be renamed, you have a document with the same name"
-        );
-      }
-    } catch (error) {
-      console.log("error");
-      displayErrorMessage(error.message);
-      console.error(error);
-      return;
-    }
-  };
-  const displayErrorMessage = (message) => {
-    const errorMessageElement = document.getElementById("error-message");
-    errorMessageElement.textContent = message;
-  };
-  const onOpen = (docID) => {};
-  //delete, rename, share --owner
   useEffect(() => {
     if (selectedOption === "myFiles" && username) {
       axios
@@ -137,9 +98,6 @@ function Documents() {
                     docName={file.docName}
                     authorName={file.authorName}
                   />
-                  <button onClick={() => onOpen(file.docID)}>Open</button>
-                  <button onClick={() => onRename(file.docID)}>Rename</button>
-                  <button onClick={() => onDelete(file.docID)}>Delete</button>
                 </div>
               )
             )}
@@ -148,7 +106,7 @@ function Documents() {
         {selectedOption == "sharedFiles" && ( // Check if there are files to be edited
           <ul>
             {editfiles.map((file) => (
-              <DocumentCard
+              <EditorDocumentCard
                 docID={file.docID}
                 docName={file.docName}
                 authorName={file.authorName}
@@ -159,7 +117,7 @@ function Documents() {
         {selectedOption == "sharedFiles" && ( // Check if there are files to be edited
           <ul>
             {viewfiles.map((file) => (
-              <DocumentCard
+              <ViewerDocumentCard
                 docID={file.docID}
                 docName={file.docName}
                 authorName={file.authorName}
