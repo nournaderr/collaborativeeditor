@@ -8,6 +8,7 @@ function Documents() {
   const [selectedOption, setSelectedOption] = useState("myFiles");
   const [files, setFiles] = useState([]);
   const [editfiles, seteditFiles] = useState([]);
+  const [viewfiles, setviewFiles] = useState([]);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const username = params.get("username");
@@ -25,7 +26,7 @@ function Documents() {
       axios
         .get(`https://collabbackend.onrender.com/viewdocs/${username}`)
         .then((response) => {
-          setFiles(response.data);
+          setviewFiles(response.data);
         })
         .catch((error) => {
           console.error("Error fetching shared files:", error);
@@ -59,22 +60,35 @@ function Documents() {
       </div>
       <div className="document-list">
         <p>{username}'s Documents</p>
-        <ul>
-          {files.map(
-            (
-              file //iterates over each element in files array
-            ) => (
+        {selectedOption == "myFiles" && (
+          <ul>
+            {files.map(
+              (
+                file //iterates over each element in files array
+              ) => (
+                <DocumentCard
+                  docID={file.docID}
+                  docName={file.docName}
+                  authorName={file.authorName}
+                />
+              )
+            )}
+          </ul>
+        )}
+        {selectedOption == "sharedFiles" && ( // Check if there are files to be edited
+          <ul>
+            {editfiles.map((file) => (
               <DocumentCard
                 docID={file.docID}
                 docName={file.docName}
                 authorName={file.authorName}
               />
-            )
-          )}
-        </ul>
+            ))}
+          </ul>
+        )}
         {selectedOption == "sharedFiles" && ( // Check if there are files to be edited
           <ul>
-            {editfiles.map((file) => (
+            {viewfiles.map((file) => (
               <DocumentCard
                 docID={file.docID}
                 docName={file.docName}
