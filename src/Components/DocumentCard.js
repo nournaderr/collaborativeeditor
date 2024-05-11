@@ -16,7 +16,7 @@ const DocumentCard = ({
       <div className="document-info">
         <h3 className="document-title">{docName}</h3>
         <p className="document-type">{authorName}</p>
-        <p className="document-date">{docID}</p>
+        {/* <p className="document-date">{docID}</p> */}
       </div>
     </div>
   );

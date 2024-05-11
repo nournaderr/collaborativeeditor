@@ -23,8 +23,11 @@ select {
   background-color: #e8e8e8;
   /* #cccdc6 */
 }
+.Navblock select {
+}
 .document-card {
-  display: flex;
+  display: block;
+  width: fit-content;
   align-items: flex-start;
   border: 1px solid #ccc;
   padding: 10px;
@@ -63,16 +66,6 @@ select {
   font-size: 12px;
   color: #999;
 }
-
-/*dropdown menu*/
-/* 
-.dropdown-button {
-  color: white;
-  padding: 16px;
-  font-size: 15px;
-  border: #a55eea;
-  cursor: pointer;
-} */
 
 .dropdown-content {
   display: contents;
