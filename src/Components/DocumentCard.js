@@ -10,7 +10,36 @@ function DocumentCard({
   editors,
   viewers,
 }) {
-  const onOpen = () => {};
+  const [content, setContent] = useState([]);
+  const onOpen = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `https://collabbackend.onrender.com/content/${docID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to open document");
+      }
+      const responseData = await response.json(); // Parse response JSON
+      const content = responseData.data;
+      window.location.href = `/TextEditor?docID=${encodeURIComponent(
+        docID
+      )}&content=${encodeURIComponent(content)}`;
+      console.log("Document opened successfully");
+    } catch (error) {
+      console.log("error");
+      displayErrorMessage(error.message);
+      console.error(error);
+      return;
+    }
+  };
   const onShare = async (e) => {
     e.preventDefault();
     const recipient = prompt(
