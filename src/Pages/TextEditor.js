@@ -1,7 +1,9 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useLocation } from "react-router-dom";
 const TextEditor = ({ value, onChange }) => {
+  const location = useLocation();
   const params = new URLSearchParams(location.search);
   const docID = params.get("docID");
   const toolbarOptions = [["bold", "italic"]];

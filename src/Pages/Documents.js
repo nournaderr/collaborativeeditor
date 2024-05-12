@@ -3,7 +3,6 @@ import axios from "axios";
 import DocumentCard from "../Components/DocumentCard";
 import EditorDocumentCard from "../Components/EditorDocumentCard";
 import ViewerDocumentCard from "../Components/ViewerDocumentCard";
-
 import "../styles/Documents.css";
 import { useLocation } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
