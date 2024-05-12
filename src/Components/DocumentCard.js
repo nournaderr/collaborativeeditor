@@ -187,7 +187,7 @@ function DocumentCard({
         <p className="document-type">{authorName}</p>
         {/* <p className="document-date">{docID}</p> */}
       </div>
-      <button onClick={() => onOpen(docID)}>Open</button>
+      <button onClick={onOpen}>Open</button>
       <button onClick={onRename}>Rename</button>
       <button onClick={onDelete}>Delete</button>
       <button onClick={onShare}>Share</button>
