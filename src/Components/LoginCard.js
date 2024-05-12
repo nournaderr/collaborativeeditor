@@ -40,12 +40,12 @@ export default function LoginCard() {
       <div className="title">
         <div className="lottie">
           <Lottie loop={true} animationData={ap} style={{ height: 100 }} />
-        </div>
 
-        <h2>
-          YOUR FAVOURITE <br></br>
-          <span className="airline">TEXTEDITOR</span>
-        </h2>
+          <h2>
+            YOUR FAVOURITE <br></br>
+            <span className="airline">TEXTEDITOR</span>
+          </h2>
+        </div>
       </div>
       <div className="login-form">
         <div className="wb">
