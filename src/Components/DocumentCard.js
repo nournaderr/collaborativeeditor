@@ -27,8 +27,8 @@ function DocumentCard({
       if (!response.ok) {
         throw new Error("Failed to open document");
       }
-      const responseData = await response.json(); // Parse response JSON
-      content = responseData.data;
+      // const responseData = await response.json(); // Parse response JSON
+      content = response.data;
       window.location.href = `/TextEditor?docID=${encodeURIComponent(
         docID
       )}&content=${encodeURIComponent(content)}`;
