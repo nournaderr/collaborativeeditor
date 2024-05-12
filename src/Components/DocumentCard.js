@@ -10,7 +10,7 @@ function DocumentCard({
   editors,
   viewers,
 }) {
-  // const [content, setContent] = useState([]);
+  const [content, setContent] = useState([]);
   const onOpen = async (e) => {
     e.preventDefault();
     try {
@@ -27,8 +27,8 @@ function DocumentCard({
       if (!response.ok) {
         throw new Error("Failed to open document");
       }
-      // const responseData = await response.json(); // Parse response JSON
-      content = response.data;
+      const responseData = await response.json(); // Parse response JSON
+      setContent(responseData);
       window.location.href = `/TextEditor?docID=${encodeURIComponent(
         docID
       )}&content=${encodeURIComponent(content)}`;
