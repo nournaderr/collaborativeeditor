@@ -135,6 +135,7 @@ function EditorDocumentCard({
       </div>
       <button onClick={onOpen}>Open</button>
       <button onClick={onRename}>Rename</button>
+      <button onClick={onShare}>Share</button>
     </div>
   );
 }
