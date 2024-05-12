@@ -62,9 +62,6 @@ function DocumentCard({
           }),
         }
       );
-      //conflict - permission already given
-      //notfound - user doesnt exist
-      //unauthorized - author is the owner
       if (!response.ok) {
         if (response.status === 401) {
           throw new Error(
@@ -83,6 +80,8 @@ function DocumentCard({
       console.log("Document shared successfully.");
     } catch (error) {
       console.error("Error sharing document:", error);
+      displayErrorMessage(error.message);
+      return;
     }
   };
 
