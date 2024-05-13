@@ -1,5 +1,7 @@
 import React from "react";
 import "../styles/Documents.css";
+//import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types"; // Import PropTypes for type validation
 function DocumentCard({
   docID,
   docName,
@@ -10,7 +12,8 @@ function DocumentCard({
   editors,
   viewers,
 }) {
-  // const [content, setContent] = useState([]);
+  const history = useHistory();
+  const [content, setContent] = useState("");
   const onOpen = async (e) => {
     e.preventDefault();
     try {
@@ -29,9 +32,12 @@ function DocumentCard({
       }
       const responseData = await response.json(); // Parse response JSON
       content = responseData.data;
-      window.location.href = `/TextEditor?docID=${encodeURIComponent(
-        docID
-      )}&content=${encodeURIComponent(content)}`;
+      history.push(
+        `/TextEditor?docID=${encodeURIComponent(
+          docID
+        )}&content=${encodeURIComponent(content)}`
+      );
+      // window.location.href = "/Documents?username=" + encodeURIComponent(docID);
       console.log("Document opened successfully");
     } catch (error) {
       console.log("error");
@@ -194,5 +200,15 @@ function DocumentCard({
     </div>
   );
 }
+DocumentCard.propTypes = {
+  docID: PropTypes.string.isRequired,
+  docName: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
+  content: PropTypes.string, // Modify content prop type to string
+  bold: PropTypes.array.isRequired,
+  italic: PropTypes.array.isRequired,
+  editors: PropTypes.array.isRequired,
+  viewers: PropTypes.array.isRequired,
+};
 
 export default DocumentCard;
