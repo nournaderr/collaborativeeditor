@@ -28,10 +28,13 @@ function DocumentCard({
       if (!response.ok) {
         throw new Error("Failed to open document");
       }
+      console.log(response + "response");
       const responseData = await response.json(); // Parse response JSON
+      console.log(response + "response");
+      console.log(responseData);
       window.location.href = "/Documents?username="`?docID=${encodeURIComponent(
         docID
-      )}&content=${responseData.content}`;
+      )}&content=${responseData}`;
       console.log("Document opened successfully");
     } catch (error) {
       console.log("error");
