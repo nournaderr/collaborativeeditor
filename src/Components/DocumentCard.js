@@ -32,7 +32,7 @@ function DocumentCard({
       const responseData = await response.json(); // Parse response JSON
       console.log(response + "response");
       console.log(responseData);
-      window.location.href = "/Documents?username="`?docID=${docID}&content=${responseData}`;
+      window.location.href = "/TextEditor?username="`?docID=${docID}&content=${responseData}`;
       console.log("Document opened successfully");
     } catch (error) {
       console.log("error");
