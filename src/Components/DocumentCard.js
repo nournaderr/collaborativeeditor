@@ -12,8 +12,6 @@ function DocumentCard({
   editors,
   viewers,
 }) {
-  const history = useHistory();
-  const [content, setContent] = useState("");
   const onOpen = async (e) => {
     e.preventDefault();
     try {
@@ -31,13 +29,15 @@ function DocumentCard({
         throw new Error("Failed to open document");
       }
       const responseData = await response.json(); // Parse response JSON
-      content = responseData.data;
-      history.push(
-        `/TextEditor?docID=${encodeURIComponent(
-          docID
-        )}&content=${encodeURIComponent(content)}`
-      );
-      // window.location.href = "/Documents?username=" + encodeURIComponent(docID);
+      content = responseData.data.content;
+      // history.push(
+      //   `/TextEditor?docID=${encodeURIComponent(
+      //     docID
+      //   )}&content=${encodeURIComponent(content)}`
+      //);
+      window.location.href = "/Documents?username="`?docID=${encodeURIComponent(
+        docID
+      )}&content=${content}`;
       console.log("Document opened successfully");
     } catch (error) {
       console.log("error");
