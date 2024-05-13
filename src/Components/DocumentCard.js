@@ -29,12 +29,7 @@ function DocumentCard({
         throw new Error("Failed to open document");
       }
       const responseData = await response.json(); // Parse response JSON
-      content = responseData.data.content;
-      // history.push(
-      //   `/TextEditor?docID=${encodeURIComponent(
-      //     docID
-      //   )}&content=${encodeURIComponent(content)}`
-      //);
+      content = responseData.data;
       window.location.href = "/Documents?username="`?docID=${encodeURIComponent(
         docID
       )}&content=${content}`;
