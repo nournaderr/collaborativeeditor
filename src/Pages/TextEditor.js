@@ -89,33 +89,35 @@ const TextEditor = ({ value, onChange }) => {
     }
   };
   useEffect(() => {
-    const socket = new SockJS("https://collabbackend.onrender.com/ws");
-    const client = Stomp.over(socket);
-    client.connect(
-      {},
-      () => {
-        console.log("Websocket connection established.");
-        stompClientRef.current = client;
-        if (stompClientRef.current) {
-          stompClientRef.current.subscribe(
-            `/all/messages/${docID}`,
-            (message) => {
-              const receivedmsg = JSON.parse(message.body);
-              console.log(receivedmsg.index + "," + receivedmsg.character);
-              insertAtIndex(receivedmsg.index, receivedmsg.character);
-            }
-          );
+    if (sessionID) {
+      const socket = new SockJS("https://collabbackend.onrender.com/ws");
+      const client = Stomp.over(socket);
+      client.connect(
+        {},
+        () => {
+          console.log("Websocket connection established.");
+          stompClientRef.current = client;
+          if (stompClientRef.current) {
+            stompClientRef.current.subscribe(
+              `/all/messages/${docID}`,
+              (message) => {
+                const receivedmsg = JSON.parse(message.body);
+                console.log(receivedmsg.index + "," + receivedmsg.character);
+                insertAtIndex(receivedmsg.index, receivedmsg.character);
+              }
+            );
+          }
+        },
+        (error) => {
+          console.error("Websocket connection failed:", error);
         }
-      },
-      (error) => {
-        console.error("Websocket connection failed:", error);
-      }
-    );
-    return () => {
-      if (stompClientRef.current) {
-        stompClientRef.current.disconnect();
-      }
-    };
+      );
+      return () => {
+        if (stompClientRef.current) {
+          stompClientRef.current.disconnect();
+        }
+      };
+    }
   }, [sessionID]);
   function insertAtIndex(index, character) {
     setBuffer((prevBuffer) => {
