@@ -14,6 +14,7 @@ const TextEditor = ({ value, onChange }) => {
   const initialContent = params.get("content") || ""; // Get initial content from URL query string and defaults to empty string
   const [content, setContent] = useState(initialContent); //represents current content of the editor
   const [buffer, setBuffer] = useState(initialContent); //used for buffering changes before sending them to the server
+  let n = 0;
   useEffect(() => {
     //initializes the editor when the component mounts or when the initialContent changes
     if (!editorRef.current) {
@@ -119,7 +120,7 @@ const TextEditor = ({ value, onChange }) => {
         stompClientRef.current.disconnect();
       }
     };
-  });
+  }, []);
   function insertAtIndex(index, character) {
     setBuffer((prevBuffer) => {
       let str = prevBuffer.replace(/<[^>]+>/g, "");
