@@ -20,6 +20,7 @@ const TextEditor = ({ value, onChange }) => {
     const generatedSessionID = generateSessionID();
     console.log("generated session ID = " + generatedSessionID);
     setSessionID(generatedSessionID);
+    console.log("sessionIDgedeed=" + sessionID);
     if (!editorRef.current) {
       //checks it has not been initialized before
       editorRef.current = new Quill("#editor-container", {
