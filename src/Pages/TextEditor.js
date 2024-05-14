@@ -42,7 +42,7 @@ const TextEditor = ({ value, onChange }) => {
   }, [buffer]);
   const handleSendMessage = (character, index) => {
     if (stompClientRef.current !== null) {
-      const operation = "insert";
+      const operation = 0;
       stompClientRef.current.send(
         `/app/application/${docID}`,
         {},
