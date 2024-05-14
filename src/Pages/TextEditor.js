@@ -14,12 +14,12 @@ const TextEditor = ({ value, onChange }) => {
   const initialContent = params.get("content") || ""; // Get initial content from URL query string and defaults to empty string
   const [content, setContent] = useState(initialContent); //represents current content of the editor
   const [buffer, setBuffer] = useState(initialContent); //used for buffering changes before sending them to the server
-  const [sessionID, setSessionID] = useState(null);
+  // const [sessionID, setSessionID] = useState(null);
+  let sessionID = null;
   useEffect(() => {
     //initializes the editor when the component mounts or when the initialContent changes
-    const generatedSessionID = generateSessionID();
-    console.log("generated session ID = " + generatedSessionID);
-    setSessionID(generatedSessionID);
+    sessionID = generateSessionID();
+    console.log("generated session ID = " + sessionID);
     console.log("sessionIDgedeed=" + sessionID);
     if (!editorRef.current) {
       //checks it has not been initialized before
@@ -36,9 +36,9 @@ const TextEditor = ({ value, onChange }) => {
     }
   }, [initialContent]);
 
-  useEffect(() => {
-    console.log("Session ID:", sessionID); // Log session ID when it changes
-  }, [sessionID]);
+  // useEffect(() => {
+  //   console.log("Session ID:", sessionID); // Log session ID when it changes
+  // }, [sessionID]);
 
   useEffect(() => {
     //triggered when buffer state changes
@@ -49,10 +49,11 @@ const TextEditor = ({ value, onChange }) => {
     editorRef.current.setSelection(plainText.length); //sets cursor
     console.log("plainText=" + plainText);
   }, [buffer]);
+  console.log("sessionzt=" + sessionID);
 
-  const handleSendMessage = (character, index) => {
+  const handleSendMessage = (operation, character, index) => {
     if (stompClientRef.current !== null && sessionID !== null) {
-      const operation = 0;
+      console.log("sessionzeft=" + sessionID);
       stompClientRef.current.send(
         `/app/application/${docID}`,
         {},
@@ -71,6 +72,8 @@ const TextEditor = ({ value, onChange }) => {
       //checks if the change is by user
       let insertedIndex = null;
       let insertedChar = null;
+      let deletedIndex = null;
+      let deletedChar = null;
       delta.ops.forEach((op) => {
         if (op.insert) {
           if (typeof op.insert === "string") {
@@ -81,8 +84,16 @@ const TextEditor = ({ value, onChange }) => {
           ) {
             insertedChar = "[IMAGE]";
           }
+        } else if (op.delete) {
+          deletedIndex = op.delete;
+          deletedChar = oldDelta.ops[0].insert; // Assuming only one character is deleted
         }
       });
+      if (deletedIndex !== null && deletedChar !== null) {
+        console.log("Deleted character:", deletedChar);
+        handleSendMessage(deletedChar, deletedIndex - 1);
+      }
+
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
@@ -122,7 +133,7 @@ const TextEditor = ({ value, onChange }) => {
         }
       };
     }
-  }, [sessionID]);
+  }, []);
   function insertAtIndex(index, character) {
     setBuffer((prevBuffer) => {
       let str = prevBuffer.replace(/<[^>]+>/g, "");
