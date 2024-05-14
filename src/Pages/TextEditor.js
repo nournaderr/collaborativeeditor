@@ -18,6 +18,7 @@ const TextEditor = ({ value, onChange }) => {
   useEffect(() => {
     //initializes the editor when the component mounts or when the initialContent changes
     const generatedSessionID = generateSessionID();
+    console.log("generated session ID = " + generatedSessionID);
     setSessionID(generatedSessionID);
     if (!editorRef.current) {
       //checks it has not been initialized before
