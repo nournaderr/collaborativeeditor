@@ -78,14 +78,10 @@ const TextEditor = ({ value, onChange }) => {
           }
         }
       });
-      // const plainText = buffer.replace(/<[^>]+>/g, "");
+      // const plainText = buffer.replace(/<[^>]+>/g, ""); //converts HTML to plaintext
       // editorRef.current.setText(plainText);
-      // editorRef.current.setSelection(plainText.length);
-      // let operation = 0;
-      const plainText = buffer.replace(/<[^>]+>/g, ""); //converts HTML to plaintext
-      editorRef.current.setText(plainText);
-      editorRef.current.setSelection(plainText.length); //sets cursor
-      console.log("plainText=" + plainText);
+      // editorRef.current.setSelection(plainText.length); //sets cursor
+      // console.log("plainText=" + plainText);
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
