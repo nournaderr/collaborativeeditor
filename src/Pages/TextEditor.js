@@ -13,7 +13,7 @@ const TextEditor = ({ value, onChange }) => {
   const docID = params.get("docID");
   const initialContent = params.get("content") || ""; // Get initial content from URL query string and defaults to empty string
   const [content, setContent] = useState(initialContent); //represents current content of the editor
-  const [buffer, setBuffer] = useState(null); //used for buffering changes before sending them to the server
+  const [buffer, setBuffer] = useState(initialContent); //used for buffering changes before sending them to the server
   useEffect(() => {
     //initializes the editor when the component mounts or when the initialContent changes
     if (!editorRef.current) {
@@ -24,7 +24,7 @@ const TextEditor = ({ value, onChange }) => {
         },
         theme: "snow",
       });
-      setBuffer(initialContent);
+      //setBuffer(initialContent);
       editorRef.current.on("text-change", handleTextChange); //attaching a listener for text changes
       editorRef.current.setText("");
       editorRef.current.clipboard.dangerouslyPasteHTML(initialContent);
