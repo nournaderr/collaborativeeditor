@@ -53,7 +53,6 @@ const TextEditor = ({ value, onChange }) => {
 
   const handleSendMessage = (operation, character, index) => {
     if (stompClientRef.current !== null && sessionID !== null) {
-      console.log("sessionzeft=" + sessionID);
       stompClientRef.current.send(
         `/app/application/${docID}`,
         {},
@@ -84,20 +83,22 @@ const TextEditor = ({ value, onChange }) => {
           ) {
             insertedChar = "[IMAGE]";
           }
-        } else if (op.delete) {
-          deletedIndex = op.delete;
-          deletedChar = oldDelta.ops[0].insert; // Assuming only one character is deleted
-        }
+        } //else if (op.delete) {
+        //   deletedIndex = editorRef.current.getSelection().index;
+        //   deletedChar = oldDelta.ops[0].delete.slice(-1); // Assuming only one character is deleted
+        // }
       });
-      if (insertedIndex !== null && insertedChar !== null) {
-        handleSendMessage(0, insertedChar, insertedIndex - 1);
-      } else if (deletedIndex !== null && deletedChar !== null) {
-        handleSendMessage(1, deletedChar, deletedIndex);
-      }
-
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
+      }
+      console.log("er" + insertedChar, insertedIndex);
+      console.log("er2" + deletedIndex, "c");
+
+      if (insertedIndex !== null && insertedChar !== null) {
+        handleSendMessage(0, insertedChar, insertedIndex - 1);
+      } else if (deletedIndex !== null && deletedChar !== null) {
+        handleSendMessage(1, deletedChar, deletedIndex - 1);
       }
     }
   };
