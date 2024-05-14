@@ -86,7 +86,7 @@ const TextEditor = ({ value, onChange }) => {
       if (selection) {
         insertedIndex = selection.index;
       }
-      handleSendMessage(0, insertedChar, insertedIndex);
+      handleSendMessage(0, insertedChar, insertedIndex - 1);
       // console.log("er" + insertedChar, insertedIndex);
       // console.log("er2" + deletedIndex, "c");
 
