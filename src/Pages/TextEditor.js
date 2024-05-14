@@ -89,16 +89,16 @@ const TextEditor = ({ value, onChange }) => {
           deletedChar = oldDelta.ops[0].insert; // Assuming only one character is deleted
         }
       });
-      if (deletedIndex !== null && deletedChar !== null) {
-        console.log("Deleted character:", deletedChar);
-        handleSendMessage(deletedChar, deletedIndex - 1);
+      if (insertedIndex !== null && insertedChar !== null) {
+        handleSendMessage(0, insertedChar, insertedIndex - 1);
+      } else if (deletedIndex !== null && deletedChar !== null) {
+        handleSendMessage(1, deletedChar, deletedIndex);
       }
 
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
       }
-      handleSendMessage(insertedChar, insertedIndex - 1);
     }
   };
   useEffect(() => {
