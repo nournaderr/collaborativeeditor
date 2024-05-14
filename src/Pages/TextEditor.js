@@ -86,7 +86,7 @@ const TextEditor = ({ value, onChange }) => {
       if (selection) {
         insertedIndex = selection.index;
       }
-      handleSendMessage(insertedChar, insertedIndex);
+      handleSendMessage(insertedChar, insertedIndex - 1);
     }
   };
   useEffect(() => {
