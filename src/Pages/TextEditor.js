@@ -90,7 +90,7 @@ const TextEditor = ({ value, onChange }) => {
   useEffect(() => {
     const socket = new SockJS("https://collabbackend.onrender.com/ws");
     const client = Stomp.over(socket);
-    client.conect(
+    client.connect(
       {},
       () => {
         console.log("Websocket connection established.");
