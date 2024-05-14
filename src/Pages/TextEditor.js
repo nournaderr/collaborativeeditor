@@ -92,14 +92,15 @@ const TextEditor = ({ value, onChange }) => {
       if (selection) {
         insertedIndex = selection.index;
       }
-      console.log("er" + insertedChar, insertedIndex);
-      console.log("er2" + deletedIndex, "c");
+      handleSendMessage(0, insertedChar, insertedIndex - 1);
+      // console.log("er" + insertedChar, insertedIndex);
+      // console.log("er2" + deletedIndex, "c");
 
-      if (insertedIndex !== null && insertedChar !== null) {
-        handleSendMessage(0, insertedChar, insertedIndex - 1);
-      } else if (deletedIndex !== null && deletedChar !== null) {
-        handleSendMessage(1, deletedChar, deletedIndex - 1);
-      }
+      // if (insertedIndex !== null && insertedChar !== null) {
+      //
+      // } else if (deletedIndex !== null && deletedChar !== null) {
+      //   handleSendMessage(1, deletedChar, deletedIndex - 1);
+      // }
     }
   };
   useEffect(() => {
