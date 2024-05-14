@@ -11,35 +11,32 @@ const TextEditor = ({ value, onChange }) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const docID = params.get("docID");
-  const initialContent = params.get("content") || ""; // Get initial content from URL query string
-  const [content, setContent] = useState(initialContent);
-  // const toolbarOptions = [["bold", "italic"]];
-  // const module = {
-  //   toolbar: toolbarOptions,
-  // };
-  // const handleChange = (value) => {
-  //   setContent(value);
-  // };
-  const [buffer, setBuffer] = useState(initialContent);
+  const initialContent = params.get("content") || ""; // Get initial content from URL query string and defaults to empty string
+  const [content, setContent] = useState(initialContent); //represents current content of the editor
+  const [buffer, setBuffer] = useState(null); //used for buffering changes before sending them to the server
   useEffect(() => {
+    //initializes the editor when the component mounts or when the initialContent changes
     if (!editorRef.current) {
+      //checks it has not been initialized before
       editorRef.current = new Quill("#editor-container", {
         modules: {
           toolbar: [["bold", "italic"]],
         },
         theme: "snow",
       });
-      editorRef.current.on("text-change", handleTextChange);
+      setBuffer(initialContent);
+      editorRef.current.on("text-change", handleTextChange); //attaching a listener for text changes
       editorRef.current.setText("");
       editorRef.current.clipboard.dangerouslyPasteHTML(initialContent);
     }
   }, [initialContent]);
   useEffect(() => {
-    console.log("buffernew" + buffer);
+    //triggered when buffer state changes
+    console.log("buffernew=" + buffer);
     setContent(buffer);
-    const plainText = buffer.replace(/<[^>]+>/g, "");
+    const plainText = buffer.replace(/<[^>]+>/g, ""); //converts HTML to plaintext
     editorRef.current.setText(plainText);
-    editorRef.current.setSelection(plainText.length);
+    editorRef.current.setSelection(plainText.length); //sets cursor
     console.log("plainText=" + plainText);
   }, [buffer]);
   const handleSendMessage = (insertedIndex, insertedChar) => {
@@ -52,7 +49,9 @@ const TextEditor = ({ value, onChange }) => {
     }
   };
   const handleTextChange = (delta, oldDelta, source) => {
+    //called when content changes
     if (source === "user") {
+      //checks if the change is by user
       let insertedIndex = null;
       let insertedChar = null;
       let textSize = null;
@@ -103,6 +102,10 @@ const TextEditor = ({ value, onChange }) => {
               console.log(
                 receivedmsg.insertedIndex + "," + receivedmsg.insertedChar
               );
+              insertAtIndex(
+                receivedmsg.insertedIndex,
+                receivedmsg.insertedChar
+              );
             }
           );
         }
@@ -117,6 +120,13 @@ const TextEditor = ({ value, onChange }) => {
       }
     };
   });
+  function insertAtIndex(index, character) {
+    setBuffer((prevBuffer) => {
+      let str = prevBuffer.replace(/<[^>]+>/g, "");
+      str = str.slice(0, index) + character + str.slice(index);
+      return str;
+    });
+  }
   return (
     <div className="container">
       <h1>Text Editor</h1>
