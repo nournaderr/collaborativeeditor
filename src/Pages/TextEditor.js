@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import Quill from "quill"; // Import Quill library
-
 import "react-quill/dist/quill.snow.css";
 import { useLocation } from "react-router-dom";
 import SockJS from "sockjs-client";
@@ -18,9 +17,9 @@ const TextEditor = ({ value, onChange }) => {
   // const module = {
   //   toolbar: toolbarOptions,
   // };
-  const handleChange = (value) => {
-    setContent(value);
-  };
+  // const handleChange = (value) => {
+  //   setContent(value);
+  // };
   const [buffer, setBuffer] = useState(initialContent);
   useEffect(() => {
     if (!editorRef.current) {
@@ -98,7 +97,7 @@ const TextEditor = ({ value, onChange }) => {
         stompClientRef.current = client;
         if (stompClientRef.current) {
           stompClientRef.current.subscribe(
-            `/all/broadcast/${docID}`,
+            `/all/messages/${docID}`,
             (message) => {
               const receivedmsg = JSON.parse(message.body);
               console.log(
