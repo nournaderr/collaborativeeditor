@@ -14,9 +14,11 @@ const TextEditor = ({ value, onChange }) => {
   const initialContent = params.get("content") || ""; // Get initial content from URL query string and defaults to empty string
   const [content, setContent] = useState(initialContent); //represents current content of the editor
   const [buffer, setBuffer] = useState(initialContent); //used for buffering changes before sending them to the server
-  let n = 0;
+  const [sessionID, setSessionID] = useState(null);
   useEffect(() => {
     //initializes the editor when the component mounts or when the initialContent changes
+    const generatedSessionID = generateSessionID();
+    setSessionID(generatedSessionID);
     if (!editorRef.current) {
       //checks it has not been initialized before
       editorRef.current = new Quill("#editor-container", {
@@ -31,6 +33,11 @@ const TextEditor = ({ value, onChange }) => {
       editorRef.current.clipboard.dangerouslyPasteHTML(initialContent);
     }
   }, [initialContent]);
+
+  useEffect(() => {
+    console.log("Session ID:", sessionID); // Log session ID when it changes
+  }, [sessionID]);
+
   useEffect(() => {
     //triggered when buffer state changes
     console.log("buffernew=" + buffer);
@@ -40,15 +47,21 @@ const TextEditor = ({ value, onChange }) => {
     editorRef.current.setSelection(plainText.length); //sets cursor
     console.log("plainText=" + plainText);
   }, [buffer]);
+
   const handleSendMessage = (character, index) => {
     if (stompClientRef.current !== null) {
       const operation = 0;
       stompClientRef.current.send(
         `/app/application/${docID}`,
         {},
-        JSON.stringify({ operation, character, index })
+        JSON.stringify({ operation, character, index, sessionID })
       );
     }
+  };
+  const generateSessionID = () => {
+    const timestamp = Date.now().toString(36); // Current timestamp in base 36
+    const randomString = Math.random().toString(36).substring(2, 8); // Random string in base 36
+    return timestamp + randomString; // Combine timestamp and random string
   };
   const handleTextChange = (delta, oldDelta, source) => {
     //called when content changes
@@ -56,17 +69,7 @@ const TextEditor = ({ value, onChange }) => {
       //checks if the change is by user
       let insertedIndex = null;
       let insertedChar = null;
-      // let textSize = null;
       delta.ops.forEach((op) => {
-        // const selection = editorRef.current.getSelection();
-        // if (selection) {
-        //   const content = editorRef.current.getText(
-        //     0,
-        //     editorRef.current.getLength()
-        //   );
-        //   textSize = content.length;
-        // }
-
         if (op.insert) {
           if (typeof op.insert === "string") {
             insertedChar = op.insert;
@@ -78,10 +81,6 @@ const TextEditor = ({ value, onChange }) => {
           }
         }
       });
-      // const plainText = buffer.replace(/<[^>]+>/g, ""); //converts HTML to plaintext
-      // editorRef.current.setText(plainText);
-      // editorRef.current.setSelection(plainText.length); //sets cursor
-      // console.log("plainText=" + plainText);
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
@@ -117,7 +116,7 @@ const TextEditor = ({ value, onChange }) => {
         stompClientRef.current.disconnect();
       }
     };
-  }, []);
+  }, [sessionID]);
   function insertAtIndex(index, character) {
     setBuffer((prevBuffer) => {
       let str = prevBuffer.replace(/<[^>]+>/g, "");
