@@ -36,10 +36,6 @@ const TextEditor = ({ value, onChange }) => {
     }
   }, [initialContent]);
 
-  // useEffect(() => {
-  //   console.log("Session ID:", sessionID); // Log session ID when it changes
-  // }, [sessionID]);
-
   useEffect(() => {
     //triggered when buffer state changes
     console.log("buffernew=" + buffer);
@@ -49,8 +45,6 @@ const TextEditor = ({ value, onChange }) => {
     editorRef.current.setSelection(plainText.length); //sets cursor
     console.log("plainText=" + plainText);
   }, [buffer]);
-  console.log("sessionzt=" + sessionID);
-
   const handleSendMessage = (operation, character, index) => {
     if (stompClientRef.current !== null && sessionID !== null) {
       stompClientRef.current.send(
@@ -92,7 +86,7 @@ const TextEditor = ({ value, onChange }) => {
       if (selection) {
         insertedIndex = selection.index;
       }
-      handleSendMessage(0, insertedChar, insertedIndex - 1);
+      handleSendMessage(0, insertedChar, insertedIndex);
       // console.log("er" + insertedChar, insertedIndex);
       // console.log("er2" + deletedIndex, "c");
 
