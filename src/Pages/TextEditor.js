@@ -40,12 +40,12 @@ const TextEditor = ({ value, onChange }) => {
     editorRef.current.setSelection(plainText.length); //sets cursor
     console.log("plainText=" + plainText);
   }, [buffer]);
-  const handleSendMessage = (insertedIndex, insertedChar) => {
+  const handleSendMessage = (operation, character, index) => {
     if (stompClientRef.current !== null) {
       stompClientRef.current.send(
         `/app/application/${docID}`,
         {},
-        JSON.stringify({ insertedIndex, insertedChar })
+        JSON.stringify({ operation, character, index })
       );
     }
   };
@@ -84,7 +84,8 @@ const TextEditor = ({ value, onChange }) => {
       const plainText = buffer.replace(/<[^>]+>/g, "");
       editorRef.current.setText(plainText);
       editorRef.current.setSelection(plainText.length);
-      handleSendMessage(insertedIndex, insertedChar);
+      let operation = 0;
+      handleSendMessage(operation, insertedIndex, insertedChar);
     }
   };
   useEffect(() => {
@@ -100,13 +101,8 @@ const TextEditor = ({ value, onChange }) => {
             `/all/messages/${docID}`,
             (message) => {
               const receivedmsg = JSON.parse(message.body);
-              console.log(
-                receivedmsg.insertedIndex + "," + receivedmsg.insertedChar
-              );
-              insertAtIndex(
-                receivedmsg.insertedIndex,
-                receivedmsg.insertedChar
-              );
+              console.log(receivedmsg.index + "," + receivedmsg.character);
+              insertAtIndex(receivedmsg.index, receivedmsg.character);
             }
           );
         }
