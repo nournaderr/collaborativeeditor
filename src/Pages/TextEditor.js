@@ -82,6 +82,10 @@ const TextEditor = ({ value, onChange }) => {
       // editorRef.current.setText(plainText);
       // editorRef.current.setSelection(plainText.length);
       // let operation = 0;
+      const plainText = buffer.replace(/<[^>]+>/g, ""); //converts HTML to plaintext
+      editorRef.current.setText(plainText);
+      editorRef.current.setSelection(plainText.length); //sets cursor
+      console.log("plainText=" + plainText);
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
@@ -124,6 +128,7 @@ const TextEditor = ({ value, onChange }) => {
       str = str.slice(0, index) + character + str.slice(index);
       return str;
     });
+    console.log("buffernew2=" + buffer);
   }
   return (
     <div className="container">
