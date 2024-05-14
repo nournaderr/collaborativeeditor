@@ -104,7 +104,9 @@ const TextEditor = ({ value, onChange }) => {
               (message) => {
                 const receivedmsg = JSON.parse(message.body);
                 console.log(receivedmsg.index + "," + receivedmsg.character);
-                //insertAtIndex(receivedmsg.index, receivedmsg.character);
+                if (receivedmsg.sessionID !== sessionID) {
+                  insertAtIndex(receivedmsg.index, receivedmsg.character);
+                }
               }
             );
           }
