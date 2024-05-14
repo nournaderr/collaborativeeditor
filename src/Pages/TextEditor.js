@@ -40,8 +40,9 @@ const TextEditor = ({ value, onChange }) => {
     editorRef.current.setSelection(plainText.length); //sets cursor
     console.log("plainText=" + plainText);
   }, [buffer]);
-  const handleSendMessage = (operation, character, index) => {
+  const handleSendMessage = (character, index) => {
     if (stompClientRef.current !== null) {
+      const operation = "insert";
       stompClientRef.current.send(
         `/app/application/${docID}`,
         {},
@@ -55,23 +56,19 @@ const TextEditor = ({ value, onChange }) => {
       //checks if the change is by user
       let insertedIndex = null;
       let insertedChar = null;
-      let textSize = null;
+      // let textSize = null;
       delta.ops.forEach((op) => {
-        const selection = editorRef.current.getSelection();
-        if (selection) {
-          const content = editorRef.current.getText(
-            0,
-            editorRef.current.getLength()
-          );
-          textSize = content.length;
-        }
+        // const selection = editorRef.current.getSelection();
+        // if (selection) {
+        //   const content = editorRef.current.getText(
+        //     0,
+        //     editorRef.current.getLength()
+        //   );
+        //   textSize = content.length;
+        // }
+
         if (op.insert) {
           if (typeof op.insert === "string") {
-            if (textSize === 2) {
-              insertedIndex = editorRef.current.getSelection().index;
-            } else {
-              insertedIndex = editorRef.current.getSelection().index - 1;
-            }
             insertedChar = op.insert;
           } else if (
             typeof op.insert === "object" &&
@@ -81,11 +78,15 @@ const TextEditor = ({ value, onChange }) => {
           }
         }
       });
-      const plainText = buffer.replace(/<[^>]+>/g, "");
-      editorRef.current.setText(plainText);
-      editorRef.current.setSelection(plainText.length);
-      let operation = 0;
-      handleSendMessage(operation, insertedIndex, insertedChar);
+      // const plainText = buffer.replace(/<[^>]+>/g, "");
+      // editorRef.current.setText(plainText);
+      // editorRef.current.setSelection(plainText.length);
+      // let operation = 0;
+      const selection = editorRef.current.getSelection();
+      if (selection) {
+        insertedIndex = selection.index;
+      }
+      handleSendMessage(insertedIndex, insertedChar);
     }
   };
   useEffect(() => {
