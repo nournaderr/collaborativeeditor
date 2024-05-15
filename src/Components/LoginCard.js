@@ -2,9 +2,12 @@ import Lottie from "lottie-react";
 import ap from "../lotties/Animation - 1714335733825.json";
 import "../styles/Login.css";
 import { useState } from "react";
-export default function LoginCard() {
+import Login from "../Pages/Login";
+export default function LoginCard({ login }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -20,7 +23,8 @@ export default function LoginCard() {
       if (!response.ok) {
         throw new Error("Invalid username or password");
       }
-      // setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", true);
+      console.log("ana hena");
       window.location.href =
         "/Documents?username=" + encodeURIComponent(username);
     } catch (error) {

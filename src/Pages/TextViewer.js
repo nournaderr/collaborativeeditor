@@ -32,7 +32,9 @@ const TextViewer = () => {
         theme: "snow",
       });
       //setBuffer(initialContent);
-      editorRef.current.editor.disable();
+      if (editorRef.current && editorRef.current.editor) {
+        editorRef.current.disable();
+      }
       editorRef.current.on("text-change", handleTextChange); //attaching a listener for text changes
       editorRef.current.setText("");
       editorRef.current.clipboard.dangerouslyPasteHTML(initialContent);
@@ -232,7 +234,7 @@ const TextViewer = () => {
   }
   return (
     <div className="container">
-      <h1>Text Editor</h1>
+      <h1>Text Viewer</h1>
       <div id="editor-container" />
       {/* <ReactQuill modules={module} value={content} onChange={handleChange} /> */}
     </div>

@@ -6,7 +6,8 @@ import { useLocation } from "react-router-dom";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
-const TextEditor = ({ value, onChange }) => {
+const TextEditor = () => {
+  const [editorHtml, setEditorHtml] = useState("");
   const editorRef = useRef(null);
   const stompClientRef = useRef(null);
   const location = useLocation();
@@ -78,7 +79,7 @@ const TextEditor = ({ value, onChange }) => {
     const randomString = Math.random().toString(36).substring(2, 8); // Random string in base 36
     return timestamp + randomString; // Combine timestamp and random string
   };
-  const handleTextChange = (delta, oldDelta, source) => {
+  const handleTextChange = (content, delta, source, editor) => {
     //called when content changes
     if (source === "user") {
       //checks if the change is by user
@@ -132,7 +133,16 @@ const TextEditor = ({ value, onChange }) => {
       );
       setBuffer(editorRef.current.getText());
     }
+    if (source === "toolbar") {
+      delta.ops.forEach((op) => {
+        if (op.attributes && op.attributes.format) {
+          console.log("Toolbar action:", op.attributes.format);
+        }
+      });
+    }
+    setEditorHtml(content);
   };
+
   useEffect(() => {
     if (sessionID) {
       const socket = new SockJS("https://collabbackend.onrender.com/ws");
