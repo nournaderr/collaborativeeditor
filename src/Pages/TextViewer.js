@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-// import ReactQuill from "react-quill";
 import Quill from "quill"; // Import Quill library
 import "react-quill/dist/quill.snow.css";
 import { useLocation } from "react-router-dom";
@@ -28,11 +27,12 @@ const TextEditor = ({ value, onChange }) => {
       //checks it has not been initialized before
       editorRef.current = new Quill("#editor-container", {
         modules: {
-          toolbar: [["bold", "italic"]],
+          toolbar: [],
         },
         theme: "snow",
       });
       //setBuffer(initialContent);
+      editorRef.current.disabled;
       editorRef.current.on("text-change", handleTextChange); //attaching a listener for text changes
       editorRef.current.setText("");
       editorRef.current.clipboard.dangerouslyPasteHTML(initialContent);

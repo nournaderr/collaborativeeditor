@@ -23,6 +23,7 @@ const App = () => {
             element={<TextEditor value={text} onChange={handleChange} />}
           />
           <Route path="/documents" element={<Documents />} />
+          <Route path="/TextViewer" element={<TextViewer />} />
 
           {/* <Route
             path="/"
