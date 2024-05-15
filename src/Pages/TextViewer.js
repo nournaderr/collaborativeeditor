@@ -32,7 +32,7 @@ const TextViewer = () => {
         theme: "snow",
       });
       //setBuffer(initialContent);
-      editorRef.current.editor.disabled();
+      editorRef.current.editor.disable();
       editorRef.current.on("text-change", handleTextChange); //attaching a listener for text changes
       editorRef.current.setText("");
       editorRef.current.clipboard.dangerouslyPasteHTML(initialContent);
