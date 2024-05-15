@@ -5,7 +5,19 @@ import "react-quill/dist/quill.snow.css";
 import { useLocation } from "react-router-dom";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
+// class Message {
+//   constructor(operation, character, index, endIndex, bold, italic, sessionID) {
+//     this.operation = operation;
+//     this.character = character;
+//     this.index = index;
+//     this.endIndex = endIndex;
+//     this.isBold = bold;
+//     this.isItalic = italic;
+//     this.sessionID = sessionID;
+//   }
+// }
 const TextEditor = ({ value, onChange }) => {
+  // const [myMessage, setMyMessage] = useState([]);
   const editorRef = useRef(null);
   const stompClientRef = useRef(null);
   const location = useLocation();
@@ -15,12 +27,14 @@ const TextEditor = ({ value, onChange }) => {
   const [content, setContent] = useState(initialContent); //represents current content of the editor
   const [buffer, setBuffer] = useState(initialContent); //used for buffering changes before sending them to the server
   // const [sessionID, setSessionID] = useState(null);
+  var serverArr = [];
+  var pendingChanges = [];
   let sessionID = null;
+  let flag = false;
   useEffect(() => {
     //initializes the editor when the component mounts or when the initialContent changes
     sessionID = generateSessionID();
     console.log("generated session ID = " + sessionID);
-    console.log("sessionIDgedeed=" + sessionID);
     if (!editorRef.current) {
       //checks it has not been initialized before
       editorRef.current = new Quill("#editor-container", {
@@ -45,12 +59,28 @@ const TextEditor = ({ value, onChange }) => {
     editorRef.current.setSelection(plainText.length); //sets cursor
     console.log("plainText=" + plainText);
   }, [buffer]);
-  const handleSendMessage = (operation, character, index) => {
+  const handleSendMessage = (
+    operation,
+    character,
+    index,
+    endIndex,
+    isBold,
+    isItalic,
+    sessionID
+  ) => {
     if (stompClientRef.current !== null && sessionID !== null) {
       stompClientRef.current.send(
         `/app/application/${docID}`,
         {},
-        JSON.stringify({ operation, character, index, sessionID })
+        JSON.stringify({
+          operation,
+          character,
+          index,
+          endIndex,
+          isBold,
+          isItalic,
+          sessionID,
+        })
       );
     }
   };
@@ -65,8 +95,6 @@ const TextEditor = ({ value, onChange }) => {
       //checks if the change is by user
       let insertedIndex = null;
       let insertedChar = null;
-      let deletedIndex = null;
-      let deletedChar = null;
       delta.ops.forEach((op) => {
         if (op.insert) {
           if (typeof op.insert === "string") {
@@ -77,24 +105,37 @@ const TextEditor = ({ value, onChange }) => {
           ) {
             insertedChar = "[IMAGE]";
           }
-        } //else if (op.delete) {
-        //   deletedIndex = editorRef.current.getSelection().index;
-        //   deletedChar = oldDelta.ops[0].delete.slice(-1); // Assuming only one character is deleted
-        // }
+        }
       });
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
       }
-      handleSendMessage(0, insertedChar, insertedIndex - 1);
-      // console.log("er" + insertedChar, insertedIndex);
-      // console.log("er2" + deletedIndex, "c");
-
-      // if (insertedIndex !== null && insertedChar !== null) {
-      //
-      // } else if (deletedIndex !== null && deletedChar !== null) {
-      //   handleSendMessage(1, deletedChar, deletedIndex - 1);
-      // }
+      let bold = false;
+      let italic = false;
+      let operation = 0;
+      let index = insertedIndex;
+      let endIndex = insertedIndex;
+      pendingChanges.push(
+        JSON.stringify({
+          operation,
+          insertedChar,
+          index,
+          endIndex,
+          bold,
+          italic,
+          sessionID,
+        })
+      );
+      handleSendMessage(
+        0,
+        insertedChar,
+        insertedIndex - 1,
+        insertedIndex - 1,
+        bold,
+        italic,
+        sessionID
+      );
       setBuffer(editorRef.current.getText());
     }
   };
@@ -113,9 +154,25 @@ const TextEditor = ({ value, onChange }) => {
               (message) => {
                 const receivedmsg = JSON.parse(message.body);
                 console.log(receivedmsg.index + "," + receivedmsg.character);
-
                 if (receivedmsg.sessionID !== sessionID) {
                   insertAtIndex(receivedmsg.index, receivedmsg.character);
+                }
+                if (receivedmsg === pendingChanges[0]) {
+                  pendingChanges.shift();
+                  return;
+                } else {
+                  for (let j = 0; j < pendingChanges.length; j++) {
+                    if (
+                      receivedmsg.operation == 0 &&
+                      pendingChanges[j].operation == 0
+                    ) {
+                      if (receivedmsg.index <= pendingChanges[j].index) {
+                        pendingChanges[j].index = pendingChanges[j].index + 1;
+                      } else {
+                        receivedmsg.index = receivedmsg.index + 1;
+                      }
+                    }
+                  }
                 }
               }
             );
