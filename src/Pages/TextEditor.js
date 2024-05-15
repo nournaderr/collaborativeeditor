@@ -148,9 +148,6 @@ const TextEditor = ({ value, onChange }) => {
               (message) => {
                 const receivedmsg = JSON.parse(message.body);
                 console.log(receivedmsg.index + "," + receivedmsg.character);
-                if (receivedmsg.sessionID !== sessionID) {
-                  insertAtIndex(receivedmsg.index, receivedmsg.character);
-                }
                 if (receivedmsg === pendingChanges[0]) {
                   pendingChanges.shift();
                   return;
@@ -167,6 +164,14 @@ const TextEditor = ({ value, onChange }) => {
                       }
                     }
                   }
+                }
+                // if (receivedmsg.sessionID !== sessionID) {
+                //   insertAtIndex(receivedmsg.index, receivedmsg.character);
+                // }
+                if (receivedmsg.operation === 0) {
+                  insertAtIndex(receivedmsg.index, receivedmsg.character);
+                } else if (receivedmsg.operation === 1) {
+                  deleteAtIndex(receivedmsg.index);
                 }
               }
             );
@@ -187,6 +192,14 @@ const TextEditor = ({ value, onChange }) => {
     setBuffer((prevBuffer) => {
       let str = prevBuffer.replace(/<[^>]+>/g, "");
       str = str.slice(0, index) + character + str.slice(index);
+      return str;
+    });
+    console.log("buffernew2=" + buffer);
+  }
+  function deleteAtIndex(index) {
+    setBuffer((prevBuffer) => {
+      let str = prevBuffer.replace(/<[^>]+>/g, "");
+      str = str.slice(0, index) + str.slice(index + 1);
       return str;
     });
     console.log("buffernew2=" + buffer);
