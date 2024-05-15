@@ -39,7 +39,35 @@ const TextEditor = () => {
       editorRef.current.clipboard.dangerouslyPasteHTML(initialContent);
     }
   }, [initialContent]);
+  useEffect(() => {
+    getContent();
+  }, []);
+  const getContent = async () => {
+    try {
+      const response = await fetch(
+        `https://collabbackend.onrender.com/content/${docID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
+      if (!response.ok) {
+        throw new Error("Failed to open document");
+      }
+      console.log(response + "response");
+      const responseData = await response.json(); // Parse response JSON
+      console.log(responseData);
+      setBuffer(responseData);
+      console.log("Document opened successfully");
+    } catch (error) {
+      console.log("error");
+      console.error(error);
+      return;
+    }
+  };
   useEffect(() => {
     //triggered when buffer state changes
     console.log("buffernew=" + buffer);
@@ -121,15 +149,17 @@ const TextEditor = () => {
           sessionID,
         })
       );
-      handleSendMessage(
-        operation,
-        insertedChar,
-        insertedIndex - 1,
-        insertedIndex - 1,
-        bold,
-        italic,
-        sessionID
-      );
+      if (pendingChanges.length === 1) {
+        handleSendMessage(
+          operation,
+          insertedChar,
+          insertedIndex - 1,
+          insertedIndex - 1,
+          bold,
+          italic,
+          sessionID
+        );
+      }
       setBuffer(editorRef.current.getText());
     }
     // if (source === "toolbar") {
@@ -159,6 +189,9 @@ const TextEditor = () => {
                 console.log(receivedmsg.index + "," + receivedmsg.character);
                 if (receivedmsg === pendingChanges[0]) {
                   pendingChanges.shift();
+                  if (pendingChanges.length !== 0) {
+                    handleSendMessage(pendingChanges[0]);
+                  }
                   return;
                 } else {
                   for (let j = 0; j < pendingChanges.length; j++) {
@@ -199,6 +232,9 @@ const TextEditor = () => {
                         receivedmsg.index = receivedmsg.index - 1;
                       }
                     }
+                  }
+                  if (pendingChanges.length !== 0) {
+                    handleSendMessage(pendingChanges[0]);
                   }
                 }
                 if (receivedmsg.sessionID !== sessionID) {
