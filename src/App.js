@@ -7,6 +7,8 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Documents from "./Pages/Documents";
 import TextEditor from "./Pages/TextEditor";
+import TextViewer from "./Pages/TextViewer";
+
 const App = () => {
   const [text, setText] = useState("");
   const handleChange = (value) => {
