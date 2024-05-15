@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
-const TextEditor = ({ value, onChange }) => {
+const TextViewer = () => {
   const editorRef = useRef(null);
   const stompClientRef = useRef(null);
   const location = useLocation();
@@ -239,4 +239,4 @@ const TextEditor = ({ value, onChange }) => {
   );
 };
 
-export default TextEditor;
+export default TextViewer;
