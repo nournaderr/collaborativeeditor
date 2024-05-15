@@ -16,7 +16,7 @@ const TextEditor = () => {
   const initialContent = params.get("content") || ""; // Get initial content from URL query string and defaults to empty string
   const [content, setContent] = useState(initialContent); //represents current content of the editor
   const [buffer, setBuffer] = useState(initialContent); //used for buffering changes before sending them to the server
-  // const [sessionID, setSessionID] = useState(null);
+
   var serverArr = [];
   var pendingChanges = [];
   let sessionID = null;
@@ -79,7 +79,7 @@ const TextEditor = () => {
     const randomString = Math.random().toString(36).substring(2, 8); // Random string in base 36
     return timestamp + randomString; // Combine timestamp and random string
   };
-  const handleTextChange = (content, delta, source, editor) => {
+  const handleTextChange = (delta, source) => {
     //called when content changes
     if (source === "user") {
       //checks if the change is by user
@@ -110,7 +110,6 @@ const TextEditor = () => {
       if (selection) {
         insertedIndex = selection.index;
       }
-
       pendingChanges.push(
         JSON.stringify({
           operation,
@@ -133,14 +132,14 @@ const TextEditor = () => {
       );
       setBuffer(editorRef.current.getText());
     }
-    if (source === "toolbar") {
-      delta.ops.forEach((op) => {
-        if (op.attributes && op.attributes.format) {
-          console.log("Toolbar action:", op.attributes.format);
-        }
-      });
-    }
-    setEditorHtml(content);
+    // if (source === "toolbar") {
+    //   delta.ops.forEach((op) => {
+    //     if (op.attributes && op.attributes.format) {
+    //       console.log("Toolbar action:", op.attributes.format);
+    //     }
+    //   });
+    // }
+    // setEditorHtml(content);
   };
 
   useEffect(() => {

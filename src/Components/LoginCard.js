@@ -23,8 +23,8 @@ export default function LoginCard({ login }) {
       if (!response.ok) {
         throw new Error("Invalid username or password");
       }
-      localStorage.setItem("isLoggedIn", true);
-      console.log("ana hena");
+      // localStorage.setItem("isLoggedIn", true);
+      // console.log("ana hena");
       window.location.href =
         "/Documents?username=" + encodeURIComponent(username);
     } catch (error) {
