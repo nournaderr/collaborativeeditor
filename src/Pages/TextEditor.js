@@ -169,7 +169,7 @@ const TextEditor = ({ value, onChange }) => {
                   if (receivedmsg.operation === 0) {
                     insertAtIndex(receivedmsg.index, receivedmsg.character);
                   } else if (receivedmsg.operation === 1) {
-                    deleteAtIndex(receivedmsg.index);
+                    deleteAtIndex(receivedmsg.index + 1);
                   }
                 }
               }
