@@ -190,7 +190,15 @@ const TextEditor = () => {
                 if (receivedmsg === pendingChanges[0]) {
                   pendingChanges.shift();
                   if (pendingChanges.length !== 0) {
-                    handleSendMessage(pendingChanges[0]);
+                    handleSendMessage(
+                      JSON.parse(pendingChanges[0]).operation,
+                      JSON.parse(pendingChanges[0]).insertedChar,
+                      JSON.parse(pendingChanges[0]).index,
+                      JSON.parse(pendingChanges[0]).endIndex,
+                      JSON.parse(pendingChanges[0]).isBold,
+                      JSON.parse(pendingChanges[0]).isItalic,
+                      JSON.parse(pendingChanges[0]).sessionID
+                    );
                   }
                   return;
                 } else {
@@ -234,7 +242,15 @@ const TextEditor = () => {
                     }
                   }
                   if (pendingChanges.length !== 0) {
-                    handleSendMessage(pendingChanges[0]);
+                    handleSendMessage(
+                      JSON.parse(pendingChanges[0]).operation,
+                      JSON.parse(pendingChanges[0]).insertedChar,
+                      JSON.parse(pendingChanges[0]).index,
+                      JSON.parse(pendingChanges[0]).endIndex,
+                      JSON.parse(pendingChanges[0]).isBold,
+                      JSON.parse(pendingChanges[0]).isItalic,
+                      JSON.parse(pendingChanges[0]).sessionID
+                    );
                   }
                 }
                 if (receivedmsg.sessionID !== sessionID) {
