@@ -149,17 +149,15 @@ const TextEditor = () => {
           sessionID,
         })
       );
-      if (pendingChanges.length === 1) {
-        handleSendMessage(
-          operation,
-          insertedChar,
-          insertedIndex - 1,
-          insertedIndex - 1,
-          bold,
-          italic,
-          sessionID
-        );
-      }
+      handleSendMessage(
+        operation,
+        insertedChar,
+        insertedIndex - 1,
+        insertedIndex - 1,
+        bold,
+        italic,
+        sessionID
+      );
       setBuffer(editorRef.current.getText());
     }
     // if (source === "toolbar") {
@@ -189,17 +187,6 @@ const TextEditor = () => {
                 console.log(receivedmsg.index + "," + receivedmsg.character);
                 if (receivedmsg === pendingChanges[0]) {
                   pendingChanges.shift();
-                  if (pendingChanges.length !== 0) {
-                    handleSendMessage(
-                      JSON.parse(pendingChanges[0]).operation,
-                      JSON.parse(pendingChanges[0]).insertedChar,
-                      JSON.parse(pendingChanges[0]).index,
-                      JSON.parse(pendingChanges[0]).endIndex,
-                      JSON.parse(pendingChanges[0]).isBold,
-                      JSON.parse(pendingChanges[0]).isItalic,
-                      JSON.parse(pendingChanges[0]).sessionID
-                    );
-                  }
                   return;
                 } else {
                   for (let j = 0; j < pendingChanges.length; j++) {
@@ -240,17 +227,6 @@ const TextEditor = () => {
                         receivedmsg.index = receivedmsg.index - 1;
                       }
                     }
-                  }
-                  if (pendingChanges.length !== 0) {
-                    handleSendMessage(
-                      JSON.parse(pendingChanges[0]).operation,
-                      JSON.parse(pendingChanges[0]).insertedChar,
-                      JSON.parse(pendingChanges[0]).index,
-                      JSON.parse(pendingChanges[0]).endIndex,
-                      JSON.parse(pendingChanges[0]).isBold,
-                      JSON.parse(pendingChanges[0]).isItalic,
-                      JSON.parse(pendingChanges[0]).sessionID
-                    );
                   }
                 }
                 if (receivedmsg.sessionID !== sessionID) {
