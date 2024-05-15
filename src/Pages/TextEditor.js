@@ -165,13 +165,12 @@ const TextEditor = ({ value, onChange }) => {
                     }
                   }
                 }
-                // if (receivedmsg.sessionID !== sessionID) {
-                //   insertAtIndex(receivedmsg.index, receivedmsg.character);
-                // }
-                if (receivedmsg.operation === 0) {
-                  insertAtIndex(receivedmsg.index, receivedmsg.character);
-                } else if (receivedmsg.operation === 1) {
-                  deleteAtIndex(receivedmsg.index);
+                if (receivedmsg.sessionID !== sessionID) {
+                  if (receivedmsg.operation === 0) {
+                    insertAtIndex(receivedmsg.index, receivedmsg.character);
+                  } else if (receivedmsg.operation === 1) {
+                    deleteAtIndex(receivedmsg.index);
+                  }
                 }
               }
             );
