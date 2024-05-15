@@ -79,7 +79,7 @@ const TextEditor = () => {
     const randomString = Math.random().toString(36).substring(2, 8); // Random string in base 36
     return timestamp + randomString; // Combine timestamp and random string
   };
-  const handleTextChange = (delta, source) => {
+  const handleTextChange = (delta, oldDelta, source) => {
     //called when content changes
     if (source === "user") {
       //checks if the change is by user
