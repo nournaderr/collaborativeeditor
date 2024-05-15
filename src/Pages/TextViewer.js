@@ -32,7 +32,7 @@ const TextEditor = ({ value, onChange }) => {
         theme: "snow",
       });
       //setBuffer(initialContent);
-      editorRef.current.disabled();
+      editorRef.current.editor.disabled();
       editorRef.current.on("text-change", handleTextChange); //attaching a listener for text changes
       editorRef.current.setText("");
       editorRef.current.clipboard.dangerouslyPasteHTML(initialContent);
