@@ -5,19 +5,8 @@ import "react-quill/dist/quill.snow.css";
 import { useLocation } from "react-router-dom";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-// class Message {
-//   constructor(operation, character, index, endIndex, bold, italic, sessionID) {
-//     this.operation = operation;
-//     this.character = character;
-//     this.index = index;
-//     this.endIndex = endIndex;
-//     this.isBold = bold;
-//     this.isItalic = italic;
-//     this.sessionID = sessionID;
-//   }
-// }
+
 const TextEditor = ({ value, onChange }) => {
-  // const [myMessage, setMyMessage] = useState([]);
   const editorRef = useRef(null);
   const stompClientRef = useRef(null);
   const location = useLocation();
@@ -95,8 +84,14 @@ const TextEditor = ({ value, onChange }) => {
       //checks if the change is by user
       let insertedIndex = null;
       let insertedChar = null;
+      let bold = false;
+      let italic = false;
+      let operation;
+      let index = insertedIndex;
+      let endIndex = insertedIndex;
       delta.ops.forEach((op) => {
         if (op.insert) {
+          operation = 0;
           if (typeof op.insert === "string") {
             insertedChar = op.insert;
           } else if (
@@ -105,17 +100,16 @@ const TextEditor = ({ value, onChange }) => {
           ) {
             insertedChar = "[IMAGE]";
           }
+        } else if (op.delete) {
+          operation = 1;
+          insertedChar = "";
         }
       });
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
       }
-      let bold = false;
-      let italic = false;
-      let operation = 0;
-      let index = insertedIndex;
-      let endIndex = insertedIndex;
+
       pendingChanges.push(
         JSON.stringify({
           operation,
@@ -128,7 +122,7 @@ const TextEditor = ({ value, onChange }) => {
         })
       );
       handleSendMessage(
-        0,
+        operation,
         insertedChar,
         insertedIndex - 1,
         insertedIndex - 1,
