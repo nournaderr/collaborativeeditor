@@ -116,8 +116,9 @@ const TextEditor = () => {
       let bold = false;
       let italic = false;
       let operation;
-      let index = insertedIndex;
-      let endIndex = insertedIndex;
+      let index = insertedIndex - 1;
+      let endIndex = insertedIndex - 1;
+      let format = {};
       delta.ops.forEach((op) => {
         if (op.insert) {
           operation = 0;
@@ -133,10 +134,32 @@ const TextEditor = () => {
           operation = 1;
           insertedChar = "";
         }
+        // if (op.attibutes) {
+        //   if (op.attibutes.bold) {
+        //     operation = 2;
+        //   }
+        //   if (op.attibutes.italic) {
+        //     italic = 3;
+        //   }
+        // }
       });
       const selection = editorRef.current.getSelection();
       if (selection) {
         insertedIndex = selection.index;
+      }
+      const isBoldpressed = delta.ops.some(
+        (op) => op.attributes && op.attributes.bold !== undefined
+      );
+      if (isBoldpressed) {
+        operation = 2;
+        index = selection.index - 1;
+        endIndex = selection.index + selection.length - 1;
+      }
+      const isItalicpressed = delta.ops.some(
+        (op) => op.attributes && op.attributes.italic !== undefined
+      );
+      if (isItalicpressed) {
+        operation = 3;
       }
       pendingChanges.push(
         JSON.stringify({
@@ -152,8 +175,8 @@ const TextEditor = () => {
       handleSendMessage(
         operation,
         insertedChar,
-        insertedIndex - 1,
-        insertedIndex - 1,
+        index,
+        endIndex,
         bold,
         italic,
         sessionID
@@ -234,6 +257,10 @@ const TextEditor = () => {
                     insertAtIndex(receivedmsg.index, receivedmsg.character);
                   } else if (receivedmsg.operation === 1) {
                     deleteAtIndex(receivedmsg.index + 1);
+                  } else if (receivedmsg.operation === 2) {
+                    boldifyAtIndex(receivedmsg.index, receivedmsg.endIndex);
+                  } else if (receivedmsg.operation === 2) {
+                    italifyAtIndex(receivedmsg.index, receivedmsg.endIndex);
                   }
                 }
               }
@@ -263,6 +290,32 @@ const TextEditor = () => {
     setBuffer((prevBuffer) => {
       let str = prevBuffer.replace(/<[^>]+>/g, "");
       str = str.slice(0, index) + str.slice(index + 1);
+      return str;
+    });
+    console.log("buffernew2=" + buffer);
+  }
+  function boldifyAtIndex(index, endIndex) {
+    setBuffer((prevBuffer) => {
+      let str = prevBuffer.replace(/<[^>]+>/g, "");
+      str =
+        str.slice(0, index) +
+        "<strong>" +
+        str.slice(index, endIndex + 1) +
+        "</strong>" +
+        str.slice(endIndex + 1);
+      return str;
+    });
+    console.log("buffernew2=" + buffer);
+  }
+  function italifyAtIndex(index, endIndex) {
+    setBuffer((prevBuffer) => {
+      let str = prevBuffer.replace(/<[^>]+>/g, "");
+      str =
+        str.slice(0, index) +
+        "<em>" +
+        str.slice(index, endIndex + 1) +
+        "</em>" +
+        str.slice(endIndex + 1);
       return str;
     });
     console.log("buffernew2=" + buffer);
