@@ -134,14 +134,6 @@ const TextEditor = () => {
           operation = 1;
           insertedChar = "";
         }
-        // if (op.attibutes) {
-        //   if (op.attibutes.bold) {
-        //     operation = 2;
-        //   }
-        //   if (op.attibutes.italic) {
-        //     italic = 3;
-        //   }
-        // }
       });
       const selection = editorRef.current.getSelection();
       if (selection) {
@@ -160,6 +152,8 @@ const TextEditor = () => {
       );
       if (isItalicpressed) {
         operation = 3;
+        index = selection.index - 1;
+        endIndex = selection.index + selection.length - 1;
       }
       pendingChanges.push(
         JSON.stringify({
@@ -172,25 +166,30 @@ const TextEditor = () => {
           sessionID,
         })
       );
-      handleSendMessage(
-        operation,
-        insertedChar,
-        index,
-        endIndex,
-        bold,
-        italic,
-        sessionID
-      );
-      setBuffer(editorRef.current.getText());
+      if (operation === 0 || operation === 1) {
+        handleSendMessage(
+          operation,
+          insertedChar,
+          insertedIndex - 1,
+          insertedIndex - 1,
+          bold,
+          italic,
+          sessionID
+        );
+        setBuffer(editorRef.current.getText());
+      } else if (operation === 2 || operation === 3) {
+        handleSendMessage(
+          operation,
+          insertedChar,
+          index,
+          endIndex,
+          bold,
+          italic,
+          sessionID
+        );
+        setBuffer(editorRef.current.getText());
+      }
     }
-    // if (source === "toolbar") {
-    //   delta.ops.forEach((op) => {
-    //     if (op.attributes && op.attributes.format) {
-    //       console.log("Toolbar action:", op.attributes.format);
-    //     }
-    //   });
-    // }
-    // setEditorHtml(content);
   };
 
   useEffect(() => {
@@ -259,7 +258,7 @@ const TextEditor = () => {
                     deleteAtIndex(receivedmsg.index + 1);
                   } else if (receivedmsg.operation === 2) {
                     boldifyAtIndex(receivedmsg.index, receivedmsg.endIndex);
-                  } else if (receivedmsg.operation === 2) {
+                  } else if (receivedmsg.operation === 3) {
                     italifyAtIndex(receivedmsg.index, receivedmsg.endIndex);
                   }
                 }
@@ -296,16 +295,15 @@ const TextEditor = () => {
   }
   function boldifyAtIndex(index, endIndex) {
     setBuffer((prevBuffer) => {
-      let str = prevBuffer.replace(/<[^>]+>/g, "");
-      str =
-        str.slice(0, index) +
-        "<strong>" +
-        str.slice(index, endIndex + 1) +
-        "</strong>" +
-        str.slice(endIndex + 1);
-      return str;
+      let bufferArray = prevBuffer.split(""); // Convert buffer string to array
+      // Insert <strong> tag at the start index
+      bufferArray.splice(index + 8, 0, "<strong>");
+      // Insert </strong> tag at the end index + 1
+      bufferArray.splice(endIndex + 9, 0, "</strong>"); // Add 9 to endIndex to account for the length of <strong> tag
+      return bufferArray.join(""); // Convert array back to string
     });
     console.log("buffernew2=" + buffer);
+    console.log("bold aho");
   }
   function italifyAtIndex(index, endIndex) {
     setBuffer((prevBuffer) => {
